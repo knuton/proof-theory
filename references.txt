@@ -1,0 +1,7 @@
+This is a list of (potential) references:
+    * Lectures on the Curry-Howard Isomorphism (1998)
+        by Morten Heine B. Sørensen, Pawel Urzyczyn
+    * Basic Proof Theory
+        Troelstra-Schwichtenberg
+    * some original Curry's/Howard's/Church's papers?
+
