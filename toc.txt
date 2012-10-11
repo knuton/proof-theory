@@ -1,0 +1,29 @@
+ToC
+====
+
+J 0. Preface / motivation
+     <BHK interpretation, functional programming>
+  1. Pre-requisites
+I    1.1. Untyped lambda-calculus
+I        1.1.1 Beta-reduction
+I        ?1.1.2 Church-Rosser theorem
+I        ?1.1.3 Combinators
+I    1.2. Simply typed lambda-calculus
+J    1.3. A revisit of Natural Deduction
+         <include hints on correspondence>
+  2. Curry-Howard Isomorphism
+J    2.1 Bijection between proof trees ("the proof" in LCH)
+J    2.2 Combinators <-> Axioms
+J    2.3 Parallel between beta-reductions and transformations of proof trees
+J    2.4 Correspondance between weak normalizations and normal forms
+I    2.5 Uniqueness of normal form and Church-Rosser Theorem
+I    2.6 Consistency of Nip-> via Normal forms
+  3. Further material
+     3.1 Constructiveness in Computation / Example in Haskell
+
+
+If time permits:
+3. Extensions and consequences
+    3.1 From implicational to a full deduction system via an extended types
+    3.3 Relations between type checking, inhabitation and typability and
+        (purely) proof theoretic problems.
