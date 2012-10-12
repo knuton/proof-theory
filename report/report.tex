@@ -6,6 +6,13 @@
 \usepackage{microtype}
 \setkomafont{sectioning}{\rmfamily\bfseries}
 
+\usepackage{bussproofs}
+
+% "Macros" for re-occurring constructs
+\newcommand{\limpl}{\mathcal{L}_\to}
+\newcommand{\implnpi}{$\to$\textbf{Npi}}
+\newcommand{\implnpm}{$\to$\textbf{Npm}}
+
 \title{Curry-Howard correspondence for Ni and Church-Rosser theorem}
 \author{%
     Ignas Vyšniauskas (\texttt{i.vysniauskas@gmail.com})\\
@@ -20,5 +27,8 @@
 
 % Preface
 \input{chapters/preface}
+
+% Prerequisites
+\input{chapters/prerequisites}
 
 \end{document}
