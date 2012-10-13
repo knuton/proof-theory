@@ -1,0 +1,176 @@
+\section{Smooth Operators}
+
+We give a function $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npiproofs$
+of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
+
+\begin{definition}
+We define the notation $M^{A}$ for a simply-typed lambda term $M$ to mean that
+$M$ contains the outermost type annotation $A$, i.e. $M^A \equiv M':A$ for some
+string $M'$.
+\end{definition}
+
+\begin{alignat*}{2}
+\chmap(A^u) &= u: A \\[0.5em]
+\chmap\left(
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\right) &= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[0.5em]
+\chmap\left(
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\right) &= (\lambda u: A.\chmap(\mathcal{D})): A \to B
+\end{alignat*}
+
+\begin{proposition}
+If $\mathcal{D}$ is a deduction of $A$, then $\chmap(\mathcal{D})$ has type $A$.
+\end{proposition}
+
+\begin{proof}
+By induction on the complexity of $\mathcal{D}$.
+\end{proof}
+
+We additionally define $\chmapanta: \stlambdaterms \to \npiproofs$:
+
+\begin{alignat*}{2}
+\chmapanta(u: A) &= A^u \\[0.5em]
+\chmapanta((M^{A \to B})(N^A): B) &=
+  \AxiomC{$\chmapanta(M^{A \to B})$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\chmapanta(N^A)$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{B}
+  \DisplayProof \\[0.5em]
+\chmapanta((\lambda u:A.M^B):A \to B) &=
+  \AxiomC{$\chmapanta(M^B)$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\end{alignat*}
+
+\begin{proposition}
+For any lambda term $M^A$, $\chmapanta(M^A)$ is a proof of $A$.
+\end{proposition}
+
+\begin{proof}
+By induction on the complexity of lambda terms.
+\end{proof}
+
+We now show that $\chmap$ is a bijection with $\chmapanta = \chmap^{-1}$ by
+showing that $\chmapanta \circ \chmap = id_{\npiproofs}$ and $\chmap \circ
+\chmapanta = id_{\stlambdaterms}$. The proof is by induction on the construction
+of deduction trees and lambda terms respectively.
+
+\[
+\chmapanta(\chmap(A^u)) = \chmapanta(u:A) = A^u = id_{\npiproofs}(A^u)
+\]
+
+\begin{align*}
+\chmapanta\left(\chmap\left(
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\right)\right)
+& =
+  \chmapanta(\chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B)
+  \tag{By def. $\chmap$} \\[0.5em]
+& =
+  \AxiomC{$\chmapanta(\chmap(\mathcal{D}_1))$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\chmapanta(\chmap(\mathcal{D}_2))$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{B}
+  \DisplayProof \tag{By def. $\chmapanta$} \\[0.5em]
+& =
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof \tag{By induction hypothesis} \\[0.5em]
+& =
+  id_{\npiproofs}\left(
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+  \right)
+\end{align*}
+
+\begin{align*}
+\chmapanta\left(\chmap\left(
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\right)\right)
+& =
+  \chmapanta((\lambda u: A.\chmap(\mathcal{D})): A \to B)
+  \tag{By def. $\chmap$} \\[0.5em]
+& =
+  \AxiomC{$\chmapanta(\chmap(\mathcal{D}))$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof \tag{By def. $\chmapanta$} \\[0.5em]
+& =
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof \tag{By induction hypothesis} \\[0.5em]
+& =
+  id_{\npiproofs}\left(
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+  \right)
+\end{align*}
+

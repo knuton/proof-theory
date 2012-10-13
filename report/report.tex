@@ -8,6 +8,11 @@
 \usepackage{hyperref}
 \hypersetup{hidelinks=true}
 
+\usepackage{amsmath,amsthm}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
 \usepackage{microtype}
 \setkomafont{sectioning}{\rmfamily\bfseries}
 
@@ -15,8 +20,13 @@
 
 % "Macros" for re-occurring constructs
 \newcommand{\limpl}{\mathcal{L}_\to}
+\newcommand{\npiproofs}{\mathsf{D}_\to}
 \newcommand{\implnpi}{$\to$\textbf{Npi}}
 \newcommand{\implnpm}{$\to$\textbf{Npm}}
+\newcommand{\stlambda}{$\lambda_\to$}
+\newcommand{\stlambdaterms}{\Lambda_\to}
+\newcommand{\chmap}{\mathcal{F}}
+\newcommand{\chmapanta}{\mathcal{G}}
 
 \title{Curry-Howard correspondence for Ni and Church-Rosser theorem}
 \author{%
@@ -37,6 +47,9 @@
 
 % Prerequisites
 \input{chapters/prerequisites}
+
+% Curry-Howard
+\input{chapters/curryhoward}
 
 \printbibliography
 
