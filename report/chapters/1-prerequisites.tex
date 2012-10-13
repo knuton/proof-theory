@@ -1,0 +1,129 @@
+\chapter{Pre-requisites}
+
+We begin our journey to the correspondance by introducing all the required
+background theory.
+
+%% @todo: perhaps add an informal introduction of lambda-calculus here?
+
+\section{Untyped $\lambda$-calculus}
+
+%% Here I follow the style "Introduction to Lambda Calculus" by
+%% H. Barendregt and E. Barendsen to avoid dealing with "pre-terms" and that
+%% crap.
+
+The language of untyped $\lambda$-calculus is surprisingly simple.
+
+We begin with an infinite set of variables $V = \{v, v', v'', \ldots\}$ from
+which we construct the set of $\lambda$-terms which we shall call $\Lambda$.
+
+We define the set $\Lambda$ recursively by:
+\begin{align*}
+    x \in V & \Rightarrow x \in \Lambda &
+        \text{variables} \\
+    M \in \Lambda,\, x \in V & \Rightarrow (\lambda x M) \in \Lambda &
+        \text{$\lambda$-abstraction} \\
+    M, N \in \Lambda & \Rightarrow (M N) &
+        \text{function application}
+\end{align*}
+
+\emph{Note}: We shall always use lower case letters to denote \emph{variables} and
+uppercase letters to denote arbitrary $\lambda$-terms.
+
+Intuitively, we think of $\lambda$-abstractions as functions, where the meaning
+of the word 'function' lies somewhere inbetween our understanding of functions as
+part of mathematics and functions as part of computer programs. We shall expand
+on this idea in later parts.
+
+In the same spirit, we think of $(M N)$ as ``function $M$ applied to $N$''.
+
+To avoid clutter with excessive bracketing, we assume the usual conventions:
+\begin{align*}
+    \lambda x_1 x_2 \ldots x_n . M &\equiv
+        (\lambda x_1 (\lambda x_2 (\cdots (\lambda x_n M)) \\
+    F M N &\equiv ((FM)N)
+\end{align*}
+
+The $\lambda$ operator, in the same way as quantifiers in First-Order Logic,
+binds the variable in front of it, hence we have the definition:
+\begin{definition}[Free variables]
+    The set of free variables of $M \in \Lambda$, denoted $FV(M)$ is defined
+    recursively as:
+        \begin{align*}
+            FV(x) &= \{x\} \\
+            FV(\lambda x M) &= FV(M) \setminus \{x\} \\
+            FV(M N) &= FV(M) \cup FV(N)
+        \end{align*}
+\end{definition}
+
+Conversly, we say that a variable $x$ occuring in $M$ is \emph{bound} if it is
+not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
+
+We denote $M[N/x]$ to mean substituting all free occurances of $x$ in $M$ by $N$.
+%% Write it out explicitly here as in the book?
+
+{\center \texttt{Need to talk about variable naming convention/avoiding free
+    variable capture after substitution.}}
+
+%% @todo: make this more formal, review if I have skipped too much.
+\begin{definition}[$\alpha$-renaming]
+Since our intuition is to think of $\lambda$-calculus as a way to express
+computation, the variable names should not go in the way, therefore we identify
+two $\lambda$-terms if they only differ in the names of bound variables, e.g.
+$\lambda x x \equiv \lambda y y$. Furthermore, we can replace any subterm of a
+$\lambda$-term by one which has been defined as equivalent.
+\end{definition}
+
+Now we move on to some results.
+
+\subsection{$\beta$-reduction}
+
+Since $\lambda$-calculus is supposed to express computable terms, we need to
+have a way of evaluating them. This is achieved via something called
+$\beta$-reduction. One can view $\beta$-reduction as yet another scheme for
+replacements (such as $\alpha$-conversion).
+
+\begin{definition}[$\beta$-reduction]
+\[ (\lambda x M N) \rightarrow_\beta M[N/x] \]
+\end{definition}
+
+%% @todo: maybe this part is BS/not that much related to our paper, so I
+%% don't know why I actually wrote this down
+At this point we can see how functions (i.e. $\lambda$-abstractions) are
+similar and differ from $\lambda$-calculus functions in mathematics:
+Consider the identity function $f(x) = x$ and the equivalent $\lambda x. x$
+
+An application of $f$ to $3$ in mathematics would correspond to: $f(3) = 3$.
+
+Although $3$ is not an element of $\Lambda$, we can informally write:
+    \[ (\lambda x. x\, 3) \rightarrow_\beta 3 \]
+
+So in both cases what we did is just replacing the variable $x$ with $3$. Now
+for the unsimilar part, since we can apply the $\lambda$-abstraction to
+\emph{any} term, we can apply it to, say, another $\lambda$-abstraction:
+    \[ (\lambda x. x\, \lambda y. 1) \rightarrow_\beta \lambda y. 1 \]
+
+$\lambda y. 1$ can thought of as a constant function which always returns $1$.
+In mathematics, this would correspond to something like: $g(x) = 1$.
+The difference arrises when we try to apply $f$ on $g$. In mathematics, one
+cannot write $f(g) = g$, we can only do explicit function composition $(f \circ
+g)(x) = g(x) = 1$. This is because functions are not first class citizens in
+the language. But fortunately they are in $\lambda$-calculus, which allows us
+to do fun things.
+
+Consider the abstraction $\lambda x.\; x\, x$, call it $\bm{D}$ for double.
+What happens if we apply $\bm{D}$ to itself?
+    \[ (\bm{D} \bm{D}) = (\lambda x.\, x\, x\: \bm{D})
+        \rightarrow_\beta (\bm{D} \bm{D}) \]
+
+So it seems that evaluating $(\bm{D} \bm{D})$ results in itself, which means
+that if we were to write a program that would try to evaluate it, it would get
+stuck in an infinite loop. We can even think of worse examples by taking
+$\bm{T} = \lambda x.\; x\, x\,x$ and trying to evaluate $\bm{T}\, \bm{T}$.
+Again, this hints on the similarity with computation (via non-terminating
+programs).
+
+\center{\texttt{Continue up to at least defining Church-Rosser}}
+
+\section{Simply typed $\lambda$-calculus}
+
+\section{Revisit of Natural Deduction}

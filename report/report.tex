@@ -6,6 +6,10 @@
 \usepackage{hyperref}
 \hypersetup{hidelinks=true}
 
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+
 \usepackage{microtype}
 \setkomafont{sectioning}{\rmfamily\bfseries}
 
@@ -15,6 +19,9 @@
 \newcommand{\limpl}{\mathcal{L}_\to}
 \newcommand{\implnpi}{$\to$\textbf{Npi}}
 \newcommand{\implnpm}{$\to$\textbf{Npm}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
 
 \title{Curry-Howard correspondence for Ni and Church-Rosser theorem}
 \author{%
@@ -32,6 +39,7 @@
 
 % Preface
 \input{chapters/preface}
+\input{chapters/1-prerequisites}
 
 % Prerequisites
 \input{chapters/prerequisites}
