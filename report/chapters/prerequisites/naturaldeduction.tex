@@ -1,0 +1,65 @@
+\section{The Natural Deduction System \implnpi}
+\label{sec:naturaldeduction}
+
+% I intend to add or redo passages as this becomes necessary for later sections
+
+In this section we will briefly review natural deduction systems. In particular
+we will look at the natural deduction system \implnpi\ for intuitionistic
+propositional logic with implication as the only connective. We call the
+corresponding language $\limpl$, its grammar is given by
+$$\limpl ::=\ \perp |\ P\ |\ \limpl \to \limpl,$$
+where $P$ is any of countably many propositional variable names.
+
+We will conceptualize proofs as trees of formulas and proving as constructing
+such trees. A formula $A$ is said to be \textit{deducible} in \implnpi\ if the
+rules of the system allow the construction of a \textit{deduction tree} with its
+root node being the conclusion $A$. Any non-leaf node $q$ possesses as its
+children $n$ nodes that are the premisses of a rule application of which $q$ is
+the conclusion. The leaf nodes of a deduction tree are its \textit{assumptions},
+each labelled by a variable name as its marker. Multiple occurrences of the same
+formula as assumptions with the same marker are said to compose an
+\textit{assumption class}. If the marker labelling an assumption class is
+mentioned in a rule application in the deduction tree, the assumption class is
+called \textit{closed}, otherwise \textit{open}. The open assumptions in a
+deduction tree are the assumptions of the deduction.
+
+The rules for \implnpi\ allow as the simplest deduction of any $\limpl$ formula
+$A$ the proof of $A$ from open assumption $A$ as the one-node deduction tree
+consisting only of $A$. More complex deductions can be constructed by combining
+any number of deduction trees by means of the system's only two rules, the
+\textit{implication introduction rule} $\to$I and the
+\textit{implication elimination rule} $\to$E:
+
+\begin{center}
+\AxiomC{$[A]^u$}
+\noLine
+\UnaryInfC{$\mathcal{D}_1$}
+\noLine
+\UnaryInfC{$B$}
+\RightLabel{$\to$I, $u$}
+\UnaryInfC{$A \to B$}
+\DisplayProof
+% TODO A bit more horizontal space would be nice
+\AxiomC{$\mathcal{D}_1$}
+\noLine
+\UnaryInfC{$A \to B$}
+\AxiomC{$\mathcal{D}_2$}
+\noLine
+\UnaryInfC{$A$}
+\RightLabel{$\to$E}
+\BinaryInfC{$B$}
+\DisplayProof
+\end{center}
+
+In this notation, $\mathcal{D}_1$ and $\mathcal{D}_2$ are deduction trees. The
+lines above and below a deduction tree are understood to be part of the tree
+unless separated by a horizontal line. A horizontal line signifies a rule
+application, with the name of the rule and optionally a variable name appearing
+right of the line. $A$ and $B$ are formulas of $\mathcal{L}_\to$. $[A]^u$
+denotes the assumption class of all occurrences of $A$ labelled with variable
+name $u$. We see that $\to$I closes an assumption class, which we allow to
+consist of zero occurrences of $A$.
+
+% TODO Proper reference
+This should clarify what we take ``\implnpi'' to mean, for details we refer to
+Troelstra-Schwichtenberg whose general formalism we follow.
