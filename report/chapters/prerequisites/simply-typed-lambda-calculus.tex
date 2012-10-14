@@ -1,0 +1,30 @@
+\section{Simply typed $\lambda$-calculus}
+
+We shall now extend the language of untyped $\lambda$-calculus by
+adding \emph{types} for the terms. The notion of types is very natural to
+someone with a background in programming, but perhaps not so much to someone
+from the background of mathematics.
+
+In mathematics the role of types is played by the domain and co-domain of a
+function, e.g. when we write down $f: \mathbb{Z} \rightarrow \mathbb{N}$ we
+mean that the function $f$ transforms elements of type $\mathbb{Z}$ into
+elements of type $\mathbb{N}$ and thus has the type $\mathbb{Z} \rightarrow
+\mathbb{N}$. The number $-3$ is thus of type $\mathbb{Z}$ and and a transformation like
+$x \mapsto x^2$ transforms it to $9$ which is of type $\mathbb{N}$.
+
+Again, the language of simply typed $\lambda$-calculus is a minimalistic
+extension which turns out to be very powerful. In defining it we shall follow
+the style of Curry.
+
+\begin{definition}
+The language of simply typed $\lambda$-calculus is built from:
+    \begin{enumerate}[(i)]
+        \item A countably infinite set of type variables $U$.
+        \item The set of simple types $\Pi$ which is defined recursively as:
+        \begin{align*}
+            \alpha \in U &\rightarrow \alpha \in \Pi \\
+            \sigma, \tau \in \Pi &\rightarrow (\sigma \to \tau) \in \Pi
+        \end{align*}
+    \end{enumerate}
+\end{definition}
+
