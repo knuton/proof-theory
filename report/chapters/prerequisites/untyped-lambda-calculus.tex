@@ -76,7 +76,7 @@ $\beta$-reduction. One can view $\beta$-reduction as yet another scheme for
 replacements (such as $\alpha$-conversion).
 
 \begin{definition}[$\beta$-reduction]
-\[ (\lambda x M N) \rightarrow_\beta M[N/x] \]
+\[ (\lambda x M N) \betared M[N/x] \]
 \end{definition}
 
 %% @todo: maybe this part is BS/not that much related to our paper, so I
@@ -88,12 +88,12 @@ Consider the identity function $f(x) = x$ and the equivalent $\lambda x. x$
 An application of $f$ to $3$ in mathematics would correspond to: $f(3) = 3$.
 
 Although $3$ is not an element of $\Lambda$, we can informally write:
-    \[ (\lambda x. x\, 3) \rightarrow_\beta 3 \]
+    \[ (\lambda x. x\, 3) \betared 3 \]
 
 So in both cases what we did is just replacing the variable $x$ with $3$. Now
 for the unsimilar part, since we can apply the $\lambda$-abstraction to
 \emph{any} term, we can apply it to, say, another $\lambda$-abstraction:
-    \[ (\lambda x. x\, \lambda y. 1) \rightarrow_\beta \lambda y. 1 \]
+    \[ (\lambda x. x\, \lambda y. 1) \betared \lambda y. 1 \]
 
 $\lambda y. 1$ can thought of as a constant function which always returns $1$.
 In mathematics, this would correspond to something like: $g(x) = 1$.
@@ -105,8 +105,8 @@ to do fun things.
 
 Consider the abstraction $\lambda x.\; x\, x$, call it $\bm{D}$ for double.
 What happens if we apply $\bm{D}$ to itself?
-    \[ (\bm{D} \bm{D}) = (\lambda x.\, x\, x\: \bm{D})
-        \rightarrow_\beta (\bm{D} \bm{D}) \]
+    \[ (\bm{D} \bm{D}) = (\lambda x.\; x\, x\: \bm{D})
+        \betared (\bm{D} \bm{D}) \]
 
 So it seems that evaluating $(\bm{D} \bm{D})$ results in itself, which means
 that if we were to write a program that would try to evaluate it, it would get
@@ -115,4 +115,50 @@ $\bm{T} = \lambda x.\; x\, x\,x$ and trying to evaluate $\bm{T}\, \bm{T}$.
 Again, this hints on the similarity with computation (via non-terminating
 programs).
 
-\center{\texttt{Continue up to at least defining Church-Rosser}}
+It is important to note that $\betared$ induces a relation on $\Lambda$. We
+want to able to reduce subterms of any $\lambda$-term so we require that
+$\betared$ is closed under the following rules:
+\begin{align*}
+    P \betared P' &\Rightarrow
+        \begin{cases}
+            \forall x \in V: & \lambda x.P \betared \lambda x. P' \\
+            \forall Z \in \Lambda: & (P\, Z) \betared (P'\, Z) \\
+            \forall Z \in \Lambda: & (Z\, P) \betared (Z\, P')
+        \end{cases}
+\end{align*}
+
+\begin{definition}[$\beta$-redex]
+    A term of the form $\lambda x. M$ is called a ($\beta$-)\emph{redex}.
+\end{definition}
+\begin{definition}[$\beta$-normal form]
+    A term which can not be (further) $\beta$-reduced is said it to be in
+    ($\beta$)-\emph{normal form}.
+\end{definition}
+
+Of a particular interest are iterated applications of $\betared$ and the
+reflexive closure of the resulting relation:
+\begin{definition}[$\betared^*$]
+    $\betared^*$ is the transitive closure of $\betared$.
+\end{definition}
+
+\begin{definition}[$\leftrightarrow_\beta^*$]
+    $\leftrightarrow_\beta^*$ is the reflexive closure of $\betared^*$.
+\end{definition}
+
+\begin{definition}[$=_\beta$]
+    $=_\beta$ is the symmetric closure of $\leftrightarrow_\beta^*$, or in
+    other words the equivalence relation induced by $\betared$.
+\end{definition}
+
+If for two $\lambda$-terms we have that $M =_\beta N$ then our intuition is
+that they compute the same thing.
+
+A cruicial property of this relation is exposed by the following theorem.
+\begin{theorem}[Church-Rosser Theorem]
+    Let $M \in \Lambda$. If $M \betared^* M_1$ and $M \betared^* M_2$ then
+    there exists $N$ s.t. $M_1 \betared^* N$ and $M_2 \betared^* N$.
+\end{theorem}
+\center{\texttt{<insert diagram here>}}
+\center{\texttt{<Add necessary corollaries>}}
+
+%% ok, I'm really wasting too much time here, increasing pace!
