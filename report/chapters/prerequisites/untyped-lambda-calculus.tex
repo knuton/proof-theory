@@ -23,7 +23,7 @@ We define the set $\Lambda$ recursively by:
 uppercase letters to denote arbitrary $\lambda$-terms.
 
 Intuitively, we think of $\lambda$-abstractions as functions, where the meaning
-of the word 'function' lies somewhere inbetween our understanding of functions as
+of the word `function' lies somewhere inbetween our understanding of functions as
 part of mathematics and functions as part of computer programs. We shall expand
 on this idea in later parts.
 
@@ -95,13 +95,13 @@ for the unsimilar part, since we can apply the $\lambda$-abstraction to
 \emph{any} term, we can apply it to, say, another $\lambda$-abstraction:
     \[ (\lambda x. x\, \lambda y. 1) \betared \lambda y. 1 \]
 
-$\lambda y. 1$ can thought of as a constant function which always returns $1$.
-In mathematics, this would correspond to something like: $g(x) = 1$.
-The difference arrises when we try to apply $f$ on $g$. In mathematics, one
-cannot write $f(g) = g$, we can only do explicit function composition $(f \circ
-g)(x) = g(x) = 1$. This is because functions are not first class citizens in
-the language. But fortunately they are in $\lambda$-calculus, which allows us
-to do fun things.
+$\lambda y. 1$ can be thought of as a constant function which always returns
+$1$.  In mathematics, this would correspond to something like: $g(x) = 1$.  The
+difference arrises when we try to apply $f$ on $g$. In mathematics, one cannot
+write $f(g) = g$, we can only do explicit function composition $(f \circ g)(x) =
+g(x) = 1$. This is because functions are not first class citizens in the
+language. But fortunately they are in $\lambda$-calculus, which allows us to do
+fun things.
 
 Consider the abstraction $\lambda x.\; x\, x$, call it $\bm{D}$ for double.
 What happens if we apply $\bm{D}$ to itself?
@@ -116,7 +116,7 @@ Again, this hints on the similarity with computation (via non-terminating
 programs).
 
 It is important to note that $\betared$ induces a relation on $\Lambda$. We
-want to able to reduce subterms of any $\lambda$-term so we require that
+want to be able to reduce subterms of any $\lambda$-term so we require that
 $\betared$ is closed under the following rules:
 \begin{align*}
     P \betared P' &\Rightarrow
