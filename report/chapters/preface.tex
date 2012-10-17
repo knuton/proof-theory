@@ -1,51 +1,57 @@
 \chapter{Preface}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a ante nibh.
-Quisque tincidunt malesuada diam quis ornare. Nullam libero turpis, tempus a
-vehicula id, egestas vel est. Aenean varius, risus sed faucibus porttitor,
-lorem lacus congue ligula, id molestie felis ipsum quis ligula. Suspendisse
-potenti. Donec aliquet elit a dolor porta ac semper lacus ullamcorper. In ut
-eleifend risus. Donec malesuada sapien vel tellus imperdiet malesuada gravida
-et orci. Morbi imperdiet urna ut elit hendrerit porta. Mauris pulvinar urna sed
-mauris eleifend ut pellentesque sem consequat. Nunc sodales nisi sed risus
-posuere sit amet laoreet massa dictum.
 
-Aenean interdum blandit feugiat. Fusce congue velit at nunc consequat
-fermentum. In tincidunt justo sit amet tellus condimentum sed suscipit libero
-vestibulum. Integer vitae mi elit, eu suscipit mi. Sed ut mauris sed elit
-condimentum faucibus. Nullam tempus hendrerit ante et ultrices. Phasellus
-sagittis tincidunt quam accumsan rutrum. Aenean eros purus, placerat et mollis
-et, commodo a ante. Phasellus vitae orci justo, et molestie urna.
+The two names usually connected with lambda calculus are those of Alonzo Church
+and Haskell Curry. While both their work was groundlaying for the different
+well-known systems of lambda calculus in use today, they originally set out to
+design type-free formal systems that would allow capturing the foundations of
+mathematics in a logical language with functional instead of set theoretic
+notions. Both independently developed systems that were much larger than what is
+known today as lambda calculus, or, in the case of Curry, combinatory logic.
 
-Aenean quam diam, malesuada sed sodales et, adipiscing eu felis. Fusce bibendum
-tempor quam eget bibendum. Ut mollis mollis purus non rutrum. Pellentesque
-porta nibh quis neque posuere sollicitudin. Lorem ipsum dolor sit amet,
-consectetur adipiscing elit. Nulla facilisi. Nunc urna odio, tempus id euismod
-vitae, fringilla at arcu. Pellentesque volutpat fringilla sapien nec eleifend.
-Morbi iaculis elementum sem, at aliquet lorem cursus non. Aenean iaculis, elit
-id rutrum fermentum, urna felis imperdiet urna, suscipit iaculis lectus sem
-vitae libero. Maecenas ac eros rhoncus justo auctor scelerisque. Pellentesque
-mollis iaculis posuere. Quisque id egestas nunc. Quisque tortor turpis,
-ultrices placerat venenatis quis, congue vel mi. Cras vehicula, odio at
-malesuada tincidunt, mauris ante mattis sapien, ac porttitor nisl ante vitae
-mi.
+It should turn out though, as was shown by Church's students Stephen Kleene and
+John Rosser in 1934, that both systems were inconsistent as they allowed the
+derivation of Richard's paradox. While this led Curry to attempt to correct his
+approach, Church gave up on the foundational project and cocentrated his efforts
+on those consistent parts of his system that had shown fruitful already in 1933
+for making exact the notion of intuitively computable functions: the theory of
+lambda terms. Along with the Turing Machine, this revelation should prove to be
+foundational for the emerging field of computer science.
 
-Nunc malesuada magna pretium justo sagittis pretium. Integer ac purus in sapien
-lobortis ultrices eleifend sit amet neque. Nam volutpat elit quis risus auctor
-porttitor. Fusce nunc est, lobortis vel eleifend at, lacinia vitae massa.
-Vivamus sit amet sapien at neque viverra tempor. Nam libero felis, consectetur
-ac varius nec, porta id erat. Ut eget sapien nisl. Cras a felis lectus.
-Praesent luctus iaculis tellus ac tincidunt. Phasellus convallis semper justo,
-ut congue augue vestibulum eu. Nam convallis mi vel turpis sagittis elementum
-nec eu tellus. Cras sit amet lectus in erat rhoncus ultrices. Aenean tristique
-diam non nisi vulputate id convallis augue tempus.
+At around the same time in Europe, Andrei Kolmogorov from as early as 1925 and
+Arendt Heyting from 1930 independently published articles in the seemingly
+unrelated field of intuitionistic mathematics. In their work, they gave formal
+systems for logic as it was interpreted in intuitionism, thereby making explicit
+the interpretation of the logical connectives that is mainly due to Brouwer.
+Brouwer saw as mathematical objects those entities that could be constructed in
+the mind of the mathematician. This is in contrast to realist conceptions that
+place mathematical objects outside of the mind, aswell as formalist conceptions
+that cut ties of mathematics to any actual objects. While making mathematical
+objects more malleable and accessible to the mathematician, intuitionism
+precludes her from certain ways of reasoning about them. While for example the
+realist has no trouble making a disjunctive statement about \textit{real}
+objects, the intuitionist has nothing to make a disjunctive statement about if
+she can not construct it in her mind, viz. show that at least one of the
+disjuncts holds.
 
-Cras orci metus, luctus vitae semper eget, tempor vel dui. Nullam et augue non
-augue ullamcorper ornare ac in lectus. Nunc sed diam nunc. Suspendisse bibendum
-ante id eros auctor non egestas augue porta. Nam lacinia, sem dignissim
-bibendum imperdiet, ipsum felis pretium justo, at luctus lacus libero id nibh.
-Pellentesque imperdiet porttitor justo, in gravida ante feugiat id. Etiam vel
-aliquet urna. Quisque nisi leo, molestie quis lacinia quis, tristique porttitor
-nunc. Nulla sit amet libero ligula, pellentesque laoreet sapien. Nulla nec
-ligula vel ante eleifend facilisis. Morbi ultrices volutpat ipsum sit amet
-euismod. Quisque dapibus lobortis nunc, quis mattis metus tincidunt ac.
-Maecenas luctus pretium turpis ultrices gravida.
+It should be clear that this conception of mathematics is incompatible with the
+connectives of classical logic, as those would allow reasoning about
+mathematical objects in the abstract which may lead to empty statements
+possessing no referents. Instead, in order to make sensible propositions, the
+mathematician needs to be able to construct what he is referring to. Naturally,
+the notion of proofs is apt to change with the notions behind the connectives.
+In this light, a step in a proof is valid if it is known how to constructively
+proof the conclusion if its premises have been proven in the same manner. This
+constructive perspective on proofs appears strikingly procedural and suggests
+looking at proofs as objects that can be combined by rule application to form
+new proofs. With some aquaintance with lambda calculus, and relatedly functional
+programming, this understanding of proofs bears an uncanny resemblance to
+different operations on functions. And indeed, in the years following the Second
+World War, this connection has become more and more evident, being explicitly
+shown for different proof systems and models of computation from the late 1950s.
+
+The overall result is known as the \textit{Curry-Howard correspondence}. In this
+report, we want to illuminate the correspondence between natural deduction for
+propositional implicational logic and simply-typed lambda calculus. We will use
+this result to look at parallels in normalisation of natural deduction proofs
+and lambda terms, using the confluence (Church-Rosser) theorem to show the
+consistency of \implnpi.
