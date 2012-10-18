@@ -4,3 +4,7 @@ Makefile
 *.pdf
 *.toc
 *.out
+*.run.xml
+*.bbl
+*.blg
+*-blx.bib
