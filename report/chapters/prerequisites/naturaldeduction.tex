@@ -13,11 +13,16 @@ where $P$ is any of countably many propositional variable names.
 We will conceptualize proofs as trees of formulas and proving as constructing
 such trees. A formula $A$ is said to be \textit{deducible} in \implnpi\ if the
 rules of the system allow the construction of a \textit{deduction tree} with its
-root node being the conclusion $A$. Any non-leaf node $q$ possesses as its
-children $n$ nodes that are the premisses of a rule application of which $q$ is
-the conclusion. The leaf nodes of a deduction tree are its \textit{assumptions},
-each labelled by a variable name as its marker. Multiple occurrences of the same
-formula as assumptions with the same marker are said to compose an
+root node being the conclusion $A$. We would like for every node of the
+deduction tree to be proven by the subtree of which it is the conclusion. This
+is easy for any non-leaf node $q$ if it possesses as its children $n$ nodes that
+are the premisses of a rule application of which $q$ is the conclusion. But we
+require deduction trees to be finite structures and thus will have to deal with
+leaf nodes that do not have any children. We will in this case simply assume to
+possess some proof $u$ of the node at hand. To keep track of the purported
+proof, we will label the node with the name $u$ as a marker. We call the leaf
+nodes of a deduction tree its \textit{assumptions}. Multiple occurrences of the
+same formula as assumptions with the same marker are said to compose an
 \textit{assumption class}. If the marker labelling an assumption class is
 mentioned in a rule application in the deduction tree, the assumption class is
 called \textit{closed}, otherwise \textit{open}. The open assumptions in a
@@ -25,9 +30,10 @@ deduction tree are the assumptions of the deduction.
 
 The rules for \implnpi\ allow as the simplest deduction of any $\limpl$ formula
 $A$ the proof of $A$ from open assumption $A$ as the one-node deduction tree
-consisting only of $A$. More complex deductions can be constructed by combining
-any number of deduction trees by means of the system's only two rules, the
-\textit{implication introduction rule} $\to$I and the
+consisting only of $A$. This amounts to the plausible claim that if we possessed
+a proof of $A$, we could indeed proof $A$. More complex deductions can be
+constructed by combining any number of deduction trees by means of the system's
+only two rules, the \textit{implication introduction rule} $\to$I and the
 \textit{implication elimination rule} $\to$E:
 
 \begin{center}
@@ -39,7 +45,7 @@ any number of deduction trees by means of the system's only two rules, the
 \RightLabel{$\to$I, $u$}
 \UnaryInfC{$A \to B$}
 \DisplayProof
-% TODO A bit more horizontal space would be nice
+\hspace{2.4em}
 \AxiomC{$\mathcal{D}_1$}
 \noLine
 \UnaryInfC{$A \to B$}
@@ -54,12 +60,46 @@ any number of deduction trees by means of the system's only two rules, the
 In this notation, $\mathcal{D}_1$ and $\mathcal{D}_2$ are deduction trees. The
 lines above and below a deduction tree are understood to be part of the tree
 unless separated by a horizontal line. A horizontal line signifies a rule
-application, with the name of the rule and optionally a variable name appearing
+application, with the name of the rule and optionally a marker name appearing
 right of the line. $A$ and $B$ are formulas of $\mathcal{L}_\to$. $[A]^u$
-denotes the assumption class of all occurrences of $A$ labelled with variable
-name $u$. We see that $\to$I closes an assumption class, which we allow to
-consist of zero occurrences of $A$.
+denotes the assumption class of all occurrences of $A$ labelled with marker $u$.
+We see that $\to$I closes an assumption class, which we allow to consist of zero
+occurrences of $A$.
 
-% TODO Proper reference
 This should clarify what we take ``\implnpi'' to mean, for details we refer to
-Troelstra-Schwichtenberg whose general formalism we follow.
+\parencite{basicprooftheory} whose general formalism we follow.
+
+We will now produce exemplary proofs of three axioms of propositional logic:
+
+\begin{prooftree}
+\AxiomC{$A^u$}
+\RightLabel{$\to$I, $u$}
+\UnaryInfC{$A \to A$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$A^u$}
+\RightLabel{$\to$I, $v$}
+\UnaryInfC{$B \to A$}
+\RightLabel{$\to$I, $u$}
+\UnaryInfC{$A \to (B \to A)$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$A \to (B \to C)^u$}
+\AxiomC{$A^v$}
+\RightLabel{$\to$E}
+\BinaryInfC{$B \to C$}
+\AxiomC{$A \to B^w$}
+\AxiomC{$A^v$}
+\RightLabel{$\to$E}
+\BinaryInfC{$B$}
+\RightLabel{$\to$E}
+\BinaryInfC{$C$}
+\RightLabel{$\to$I, $v$}
+\UnaryInfC{$A \to C$}
+\RightLabel{$\to$I, $w$}
+\UnaryInfC{$(A \to B) \to (A \to C)$}
+\RightLabel{$\to$I, $u$}
+\UnaryInfC{$(A \to (B \to C)) \to ((A \to B) \to (A \to C))$}
+\end{prooftree}
