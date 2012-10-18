@@ -9,15 +9,17 @@ The language of untyped $\lambda$-calculus is surprisingly simple.
 We begin with an infinite set of variables $V = \{v, v', v'', \ldots\}$ from
 which we construct the set of $\lambda$-terms which we shall call $\Lambda$.
 
+\begin{definition}[Untyped $\lambda$-calculus]\label{def:untyped-lambda-calc}
 We define the set $\Lambda$ recursively by:
 \begin{align*}
     x \in V & \Rightarrow x \in \Lambda &
         \text{variables} \\
     M \in \Lambda,\, x \in V & \Rightarrow (\lambda x M) \in \Lambda &
         \text{$\lambda$-abstraction} \\
-    M, N \in \Lambda & \Rightarrow (M N) &
+    M, N \in \Lambda & \Rightarrow (M N) \in \Lambda &
         \text{function application}
 \end{align*}
+\end{definition}
 
 \emph{Note}: We shall always use lower case letters to denote \emph{variables} and
 uppercase letters to denote arbitrary $\lambda$-terms.
