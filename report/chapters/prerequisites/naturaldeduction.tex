@@ -20,13 +20,15 @@ are the premisses of a rule application of which $q$ is the conclusion. But we
 require deduction trees to be finite structures and thus will have to deal with
 leaf nodes that do not have any children. We will in this case simply assume to
 possess some proof $u$ of the node at hand. To keep track of the purported
-proof, we will label the node with the name $u$ as a marker. We call the leaf
-nodes of a deduction tree its \textit{assumptions}. Multiple occurrences of the
-same formula as assumptions with the same marker are said to compose an
-\textit{assumption class}. If the marker labelling an assumption class is
-mentioned in a rule application in the deduction tree, the assumption class is
-called \textit{closed}, otherwise \textit{open}. The open assumptions in a
-deduction tree are the assumptions of the deduction.
+proof, we will label the node with the name $u$ as a marker. We disallow
+occurrences of different formulas to be labelled with the same marker, noting
+that it does not make sense to purport $u$ to deduce two distinct formulas $A$
+and $B$. We call the leaf nodes of a deduction tree its \textit{assumptions}.
+Multiple occurrences of the same formula as assumptions with the same marker are
+said to compose an \textit{assumption class}. If the marker labelling an
+assumption class is mentioned in a rule application in the deduction tree, the
+assumption class is called \textit{closed}, otherwise \textit{open}. The open
+assumptions in a deduction tree are the assumptions of the deduction.
 
 The rules for \implnpi\ allow as the simplest deduction of any $\limpl$ formula
 $A$ the proof of $A$ from open assumption $A$ as the one-node deduction tree
