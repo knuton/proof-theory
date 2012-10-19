@@ -17,7 +17,7 @@ We give a bijection $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npipr
 of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
 
 \begin{alignat*}{2}
-\chmap(A^u) &= u: A \\[0.5em]
+\chmap(A^u) &= u: A \\[6pt]
 \chmap\left(
   \AxiomC{$\mathcal{D}_1$}
   \noLine
@@ -28,7 +28,7 @@ of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda 
   \RightLabel{$\to$E}
   \BinaryInfC{$B$}
   \DisplayProof
-\right) &= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[0.5em]
+\right) &= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[6pt]
 \chmap\left(
   \AxiomC{$[A]^u$}
   \noLine
@@ -49,10 +49,11 @@ If $\mathcal{D}$ is a deduction of $A$, then $\chmap(\mathcal{D})$ has type $A$.
 By induction on the complexity of $\mathcal{D}$.
 \end{proof}
 
-We additionally define $\chmapanta: \stlambdaterms \to \npiproofs$:
+We additionally define a function $\stlambdaterms \to \npiproofs$, suggestively
+named $\chmapanta$:
 
 \begin{alignat*}{2}
-\chmapanta(u: A) &= A^u \\[0.5em]
+\chmapanta(u: A) &= A^u \\[6pt]
 \chmapanta((M^{A \to B})(N^A): B) &=
   \AxiomC{$\chmapanta(M^{A \to B})$}
   \noLine
@@ -62,7 +63,7 @@ We additionally define $\chmapanta: \stlambdaterms \to \npiproofs$:
   \UnaryInfC{$A$}
   \RightLabel{$\to$E}
   \BinaryInfC{B}
-  \DisplayProof \\[0.5em]
+  \DisplayProof \\[6pt]
 \chmapanta((\lambda u:A.M^B):A \to B) &=
   \AxiomC{$\chmapanta(M^B)$}
   \noLine
@@ -80,10 +81,13 @@ For any lambda term $M^A$, $\chmapanta(M^A)$ is a proof of $A$.
 By induction on the complexity of lambda terms.
 \end{proof}
 
-We now show that $\chmap$ is a bijection with $\chmapanta = \chmap^{-1}$ by
-showing that $\chmapanta \circ \chmap = id_{\npiproofs}$ and $\chmap \circ
-\chmapanta = id_{\stlambdaterms}$. The proof is by induction on the construction
-of deduction trees and lambda terms respectively.
+We now show that $\chmap$ is a bijection by showing that
+\begin{itemize}
+\item[(i)] $\chmapanta \circ \chmap = id_{\npiproofs}$ and
+\item[(ii)] $\chmap \circ \chmapanta = id_{\stlambdaterms}$.
+\end{itemize}
+The proof is by induction on the construction of deduction trees and lambda
+terms respectively.
 
 \[
 \chmapanta(\chmap(A^u)) = \chmapanta(u:A) = A^u = id_{\npiproofs}(A^u)
@@ -103,7 +107,7 @@ of deduction trees and lambda terms respectively.
 \right)\right)
 & =
   \chmapanta(\chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B)
-  \tag{By def. $\chmap$} \\[0.5em]
+  \tag{By def. $\chmap$} \\[6pt]
 & =
   \AxiomC{$\chmapanta(\chmap(\mathcal{D}_1))$}
   \noLine
@@ -113,7 +117,7 @@ of deduction trees and lambda terms respectively.
   \UnaryInfC{$A$}
   \RightLabel{$\to$E}
   \BinaryInfC{B}
-  \DisplayProof \tag{By def. $\chmapanta$} \\[0.5em]
+  \DisplayProof \tag{By def. $\chmapanta$} \\[6pt]
 & =
   \AxiomC{$\mathcal{D}_1$}
   \noLine
@@ -123,7 +127,7 @@ of deduction trees and lambda terms respectively.
   \UnaryInfC{$A$}
   \RightLabel{$\to$E}
   \BinaryInfC{$B$}
-  \DisplayProof \tag{By induction hypothesis} \\[0.5em]
+  \DisplayProof \tag{By induction hypothesis} \\[6pt]
 & =
   id_{\npiproofs}\left(
   \AxiomC{$\mathcal{D}_1$}
@@ -151,14 +155,14 @@ of deduction trees and lambda terms respectively.
 \right)\right)
 & =
   \chmapanta((\lambda u: A.\chmap(\mathcal{D})): A \to B)
-  \tag{By def. $\chmap$} \\[0.5em]
+  \tag{By def. $\chmap$} \\[6pt]
 & =
   \AxiomC{$\chmapanta(\chmap(\mathcal{D}))$}
   \noLine
   \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
   \UnaryInfC{$A \to B$}
-  \DisplayProof \tag{By def. $\chmapanta$} \\[0.5em]
+  \DisplayProof \tag{By def. $\chmapanta$} \\[6pt]
 & =
   \AxiomC{$[A]^u$}
   \noLine
@@ -167,7 +171,7 @@ of deduction trees and lambda terms respectively.
   \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
   \UnaryInfC{$A \to B$}
-  \DisplayProof \tag{By induction hypothesis} \\[0.5em]
+  \DisplayProof \tag{By induction hypothesis} \\[6pt]
 & =
   id_{\npiproofs}\left(
   \AxiomC{$[A]^u$}
@@ -181,3 +185,51 @@ of deduction trees and lambda terms respectively.
   \right)
 \end{align*}
 
+\begin{align*}
+\chmap(\chmapanta(u:A)) & = \chmap(A^u) = u:A = id_{\stlambdaterms}(u:A)
+\end{align*}
+
+\begin{align*}
+\chmap(\chmapanta(M^{A \to B}N^A:B)) & =
+  \chmap\left(
+  \AxiomC{$\chmapanta(M^{A \to B})$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\chmapanta(N^A)$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{B}
+  \DisplayProof
+  \right) \tag{By def. $\chmapanta$}\\[4pt]
+& =
+  \chmap(\chmapanta(M^{A \to B}))\chmap(\chmapanta(N^A)): B
+  \tag{By def.  $\chmap$}\\[6pt]
+& =
+  M^{A \to B}N^A:B
+  \tag{By induction hypothesis}\\[6pt]
+& =
+  id_{\stlambdaterms}(M^{A \to B}N^A:B)
+\end{align*}
+
+\begin{align*}
+\chmap(\chmapanta((\lambda u:A.M^B):A \to B)) &=
+  \chmap\left(
+  \AxiomC{$\chmapanta(M^B)$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+  \right) \tag{By def. $\chmapanta$} \\[6pt]
+& =
+  (\lambda u: A.\chmap(\chmapanta(M^B))): A \to B
+  \tag{By def. $\chmap$} \\[6pt]
+& =
+  (\lambda u: A.M^B): A \to B
+  \tag{By induction hypothesis} \\[6pt]
+& =
+  id_{\stlambdaterms}((\lambda u: A.M^B): A \to B)
+\end{align*}
+
+\end{proof}
