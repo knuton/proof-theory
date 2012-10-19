@@ -8,16 +8,16 @@
 \usepackage{hyperref}
 \hypersetup{hidelinks=true}
 
-\usepackage{amsmath,amsthm}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{proposition}{Proposition}
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{enumerate}
+
+\usepackage{bussproofs}
 
 \usepackage{microtype}
 \setkomafont{sectioning}{\rmfamily\bfseries}
-
-\usepackage{bussproofs}
 
 % "Macros" for re-occurring constructs
 \newcommand{\limpl}{\mathcal{L}_\to}
@@ -28,6 +28,15 @@
 \newcommand{\stlambdaterms}{\Lambda_\to}
 \newcommand{\chmap}{\mathcal{F}}
 \newcommand{\chmapanta}{\mathcal{F}^{-1}}
+\newcommand{\betared}{\rightarrow_\beta}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
 
 \title{Curry-Howard correspondence for Ni and Church-Rosser theorem}
 \author{%
