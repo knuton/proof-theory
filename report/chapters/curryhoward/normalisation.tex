@@ -1,0 +1,121 @@
+\section{Normalisation}
+
+\begin{definition}[Proof Instantiation]
+We define a function for replacing all occurences of an open assumption $A^u$ in
+a deduction tree $\mathcal{D}$ by a deduction tree $\mathcal{E}$, written as
+$\mathcal{D}[A^u/\mathcal{E}]$.
+
+\[
+  \mathcal{D}[A^u/\mathcal{E}] =
+  \left\{
+  \begin{array}{ll}
+  \mathcal{E} & \mbox{if } \mathcal{D} = A^u \\[6pt]
+  \mathcal{D} & \mbox{if } \mathcal{D} = B^v, v \neq u \\[10pt]
+  \mathcal{D} & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$C$}
+    \RightLabel{$\to$I, $u$}
+    \UnaryInfC{$B \to C$}
+    \DisplayProof \\[20pt]
+  \AxiomC{$\mathcal{D}'[A^u/\mathcal{E}]$}
+  \noLine
+  \UnaryInfC{$C$}
+  \RightLabel{$\to$I, $v$}
+  \UnaryInfC{$B \to C$}
+  \DisplayProof & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$C$}
+    \RightLabel{$\to$I, $v$}
+    \UnaryInfC{$B \to C$}
+    \DisplayProof, v \neq u \\[24pt]
+  \AxiomC{$\mathcal{D}'[A^u/\mathcal{E}]$}
+  \noLine
+  \UnaryInfC{$B \to C$}
+  \AxiomC{$\mathcal{D}''[A^u/\mathcal{E}]$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$C$}
+  \DisplayProof & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$B \to C$}
+    \AxiomC{$\mathcal{D}''$}
+    \noLine
+    \UnaryInfC{$B$}
+    \RightLabel{$\to$E}
+    \BinaryInfC{$C$}
+    \DisplayProof
+  \end{array}
+  \right.
+\]
+\end{definition}
+
+\begin{definition}[Conversion]
+We define a relation $\leadsto \subseteq \npiproofs\times\npiproofs$ that captures the notion of
+normalisation steps for \implnpi\ deductions.
+
+\[
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\ \leadsto\ \mathcal{D}[A^u/\mathcal{D}_1]
+\]
+
+\[
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\ \leadsto\ 
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{E}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\mbox{if } \mathcal{D} \leadsto \mathcal{E}
+\]
+
+\[
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\ \leadsto\ 
+  \AxiomC{$\mathcal{E}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{E}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\mbox{ if } \mathcal{D}_1 \leadsto \mathcal{E}_1
+\mbox{ or } \mathcal{D}_1 \leadsto \mathcal{E}_1
+\]
+\end{definition}
