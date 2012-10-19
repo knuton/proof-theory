@@ -1,13 +1,20 @@
 \section{Smooth Operators}
 
-We give a function $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npiproofs$
-of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
-
 \begin{definition}
 We define the notation $M^{A}$ for a simply-typed lambda term $M$ to mean that
 $M$ contains the outermost type annotation $A$, i.e. $M^A \equiv M':A$ for some
 string $M'$.
 \end{definition}
+
+\begin{theorem}[Curry-Howard Isomorphism]
+The set $\npiproofs$ of \implnpi\ deduction trees with implication introduction
+and implication elimination is isomorphic to the set $\stlambdaterms$ of
+simply-typed lambda terms with functional abstraction and function application.
+\end{theorem}
+
+\begin{proof}
+We give a bijection $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npiproofs$
+of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
 
 \begin{alignat*}{2}
 \chmap(A^u) &= u: A \\[0.5em]
