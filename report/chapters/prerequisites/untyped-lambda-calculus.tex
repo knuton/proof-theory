@@ -25,7 +25,7 @@ We define the set $\Lambda$ recursively by:
 uppercase letters to denote arbitrary $\lambda$-terms.
 
 Intuitively, we think of $\lambda$-abstractions as functions, where the meaning
-of the word `function' lies somewhere inbetween our understanding of functions as
+of the word `function' lies somewhere in between our understanding of functions as
 part of mathematics and functions as part of computer programs. We shall expand
 on this idea in later parts.
 
@@ -50,10 +50,10 @@ binds the variable in front of it, hence we have the definition:
         \end{align*}
 \end{definition}
 
-Conversly, we say that a variable $x$ occuring in $M$ is \emph{bound} if it is
+Conversely, we say that a variable $x$ occurring in $M$ is \emph{bound} if it is
 not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
 
-We denote $M[N/x]$ to mean substituting all free occurances of $x$ in $M$ by $N$.
+We denote $M[N/x]$ to mean substituting all free occurrences of $x$ in $M$ by $N$.
 %% Write it out explicitly here as in the book?
 
 {\center \texttt{Need to talk about variable naming convention/avoiding free
@@ -99,7 +99,7 @@ for the unsimilar part, since we can apply the $\lambda$-abstraction to
 
 $\lambda y. 1$ can be thought of as a constant function which always returns
 $1$.  In mathematics, this would correspond to something like: $g(x) = 1$.  The
-difference arrises when we try to apply $f$ on $g$. In mathematics, one cannot
+difference arises when we try to apply $f$ on $g$. In mathematics, one cannot
 write $f(g) = g$, we can only do explicit function composition $(f \circ g)(x) =
 g(x) = 1$. This is because functions are not first class citizens in the
 language. But fortunately they are in $\lambda$-calculus, which allows us to do
@@ -155,7 +155,7 @@ reflexive closure of the resulting relation:
 If for two $\lambda$-terms we have that $M =_\beta N$ then our intuition is
 that they compute the same thing.
 
-A cruicial property of this relation is exposed by the following theorem.
+A crucial property of this relation is exposed by the following theorem.
 \begin{theorem}[Church-Rosser Theorem]
     Let $M \in \Lambda$. If $M \betared^* M_1$ and $M \betared^* M_2$ then
     there exists $N$ s.t. $M_1 \betared^* N$ and $M_2 \betared^* N$.
