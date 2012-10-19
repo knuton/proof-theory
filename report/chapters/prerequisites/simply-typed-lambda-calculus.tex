@@ -1,0 +1,112 @@
+\section{Simply typed $\lambda$-calculus}
+
+We shall now extend the language of untyped $\lambda$-calculus by
+adding \emph{types} for the terms. The notion of types is very natural to
+someone with a background in programming, but perhaps not so much to someone
+from the background of mathematics.
+
+In mathematics the role of types is played by the domain and co-domain of a
+function, e.g. when we write down $f: \mathbb{Z} \rightarrow \mathbb{N}$ we
+mean that the function $f$ transforms elements of type $\mathbb{Z}$ into
+elements of type $\mathbb{N}$ and thus has the type $\mathbb{Z} \rightarrow
+\mathbb{N}$. The number $-3$ is thus of type $\mathbb{Z}$ and a transformation like
+$x \mapsto x^2$ transforms it to $9$ which is of type $\mathbb{N}$.
+
+Again, the language of simply typed $\lambda$-calculus is a minimalistic
+extension which turns out to be very powerful. In defining it we shall follow
+the style of Church i.e. use explicit type annotations for the variables in lambda
+abstractions: $\lambda x. M$ will become $\lambda x:\sigma. M$ where
+$\sigma$ is the type.
+
+\begin{definition}
+The language of simply typed $\lambda$-calculus is built from:
+    \begin{enumerate}[(i)]
+        \item A countably infinite set of type variables $U$.
+        \item The set of simple types $\Pi$ which is defined recursively as:
+        \begin{align*}
+            \alpha \in U &\Rightarrow \alpha \in \Pi \\
+            \sigma, \tau \in \Pi &\Rightarrow (\sigma \to \tau) \in \Pi
+        \end{align*}
+            \emph{Convention}. $\to$ associates to the right. This convention
+            allows us to drop parentheses.
+        \item We have to modify our original set of $\lambda$-terms $\Lambda$
+            by adding explicit type annotations, so we define the set
+            $\Lambda_\Pi$ of (explicitly annotated) $\lambda$-terms as:
+                \begin{align*}
+                    x \in V & \Rightarrow x \in \Lambda_\Pi &
+                        \text{variables} \\
+                    M \in \Lambda_\Pi,\, x \in V, \sigma \in \Pi & \Rightarrow
+                    (\lambda x\!:\!\sigma\; M) \in \Lambda_\Pi &
+                        \text{$\lambda$-abstraction} \\
+                    M, N \in \Lambda_\Pi & \Rightarrow (M N) \in \Lambda_\Pi &
+                        \text{function application}
+                \end{align*}
+                Here $V$ is the same set of variables as in definition
+                \ref{def:untyped-lambda-calc}.
+        \item A \emph{context} is a set $\Gamma$ of pairs $x_i: \tau_i$, where $x_i \in
+        \Lambda$, $\tau_i \in \Pi$ and the $x_i$'s are unique. We denote $C$ as
+        the set of \emph{all} contexts.
+        \item The \emph{domain} of a context $\Gamma$ is defined as:
+            $dom(\Gamma) = \{x\,|\, x:\tau \in \Gamma \}$
+        \item The \emph{range} of a context $\Gamma$ is defined as:
+            $|\Gamma| = \{ \tau \,|\, x:\tau \in \Gamma\}$
+        \item Most importantly, we introduce \emph{typability} relations (or
+        \emph{rules}):
+
+        \texttt{(TODO: Add explanation of commas in the sequents.)}
+
+        \texttt{(TODO: How to horizontally align bussproofs?)}
+
+        Identity: \begin{prooftree}
+                        \AxiomC{}
+                        \UnaryInfC{$\Gamma, x:\tau \vdash x:\tau$}
+                        \end{prooftree}
+        Abstraction: \begin{prooftree}
+                    \AxiomC{$\Gamma, x:\sigma \vdash M:\tau$}
+                    \UnaryInfC{$\Gamma \vdash (\lambda x\!:\!\sigma\, M):\sigma \to \tau$}
+                \end{prooftree}
+
+        Application: \begin{prooftree}
+            \AxiomC{$\Gamma \vdash M:\sigma \to \tau$}
+            \AxiomC{$\Gamma \vdash N:\sigma$}
+            \BinaryInfC{$\Gamma \vdash (M\; N): \tau$}
+        \end{prooftree}
+        \end{enumerate}
+\end{definition}
+
+
+\begin{lemma}[Generation lemma]{\ }
+\begin{enumerate}[(i)]
+        \item $\Gamma \vdash x:\tau$ implies $x:\tau \in \Gamma$
+        \item $\Gamma \vdash (M N):\tau$ implies that there exists a type
+            $\tau$ s.t. $\Gamma \vdash M: \sigma \to \tau$ and $\Gamma \vdash
+            N:\sigma$.
+        \item $\Gamma \vdash \lambda x\!:\!\sigma\; M:\rho$ implies that $\rho = \sigma
+            \to \tau$ and $\Gamma, x:\sigma \vdash M:\tau$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    All of the proofs follow by induction on the length of the derivation, so we
+    shall only prove it for case \emph{(iii)}. \texttt{TRIVIAL, HAHA. (@todo)}
+\end{proof}
+
+\begin{proposition}[Subject reduction]
+    $\Gamma \vdash M:\sigma$ and $M \betared N$ implies $\Gamma \vdash
+    N:\sigma$.
+\end{proposition}
+\begin{proof}
+    \texttt{TBD.}
+\end{proof}
+
+\begin{proposition}[Uniqueness of types] {\ }
+    \begin{enumerate}[(i)]
+        \item $\Gamma \vdash M:\sigma$ and $\Gamma \vdash M:\tau$ implies
+            $\sigma = \tau$.
+        \item $\Gamma \vdash M:\sigma$ and $\Gamma \vdash N:\tau$ and $M =_\beta
+            N$, then $\sigma = \tau$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \texttt{TBD.}
+\end{proof}
+
