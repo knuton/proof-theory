@@ -106,10 +106,10 @@ $\beta$-redutions of it.
 \end{corollary}
 
 Some very important results on \emph{normalisation} can be established in
-Church style simply typed $\lambda$-calculus.
+Church-style simply typed $\lambda$-calculus.
 \begin{theorem}[Weak normalisation]
     For any $M:\tau \in \Lambda_\Pi$, there exists a reduction strategy which
-    'terminates' in a finite number of steps, i.e. there exists a sequence
+    `terminates' in a finite number of steps, i.e. there exists a sequence
     $M:\tau \betared M_1 \betared \ldots \betared M_n:\tau$, where $M_n:\tau$
     is in normal form.
 \end{theorem}
@@ -126,7 +126,7 @@ property), so this does not contradict the theorem.
     are leaves and $\to$ is an edge) and let $d:\Pi \to \mathbb{N}$ be the
     depth of the corresponding tree (we define the depth of a leave to be $0$).
     Furthermore, define the depth of a redex $(M\!:\!\sigma\; N\!:\!\tau)$ as
-    $d(\sigma)$. If a term is in normal form we define it's depth to be $0$.
+    $d(\sigma)$. If a term is in normal form we define its depth to be $0$.
     Now for each $M \in \Lambda_\Pi$ we define:
     \begin{align*}
         m(M) &= (0, 0) \text{, if $M$ is in normal form } \\
@@ -150,7 +150,7 @@ property), so this does not contradict the theorem.
     $d_{max}(M)$. We distinguish two cases:
     \begin{enumerate}[a)]
         \item One possibility of introducing more redexes is when in the
-        redex $R = (\lambda x.\, P)\; Q$ there is more than one free occurance
+        redex $R = (\lambda x.\, P)\; Q$ there is more than one free occurrence
         of $x$ in $P$ and we are potentially copying redexes from $Q$, but we
         are safe because we know that they can only be of lower depth, since
         redexes in $Q$ are to the right of $R$ and hence cannot be maximal
