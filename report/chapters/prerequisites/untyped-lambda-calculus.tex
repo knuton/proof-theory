@@ -53,20 +53,29 @@ binds the variable in front of it, hence we have the definition:
 Conversely, we say that a variable $x$ occurring in $M$ is \emph{bound} if it is
 not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
 
-We denote $M[N/x]$ to mean substituting all free occurrences of $x$ in $M$ by $N$.
-%% Write it out explicitly here as in the book?
-
-{\center \texttt{Need to talk about variable naming convention/avoiding free
-    variable capture after substitution.}}
-
-%% @todo: make this more formal, review if I have skipped too much.
-\begin{definition}[$\alpha$-renaming]
-Since our intuition is to think of $\lambda$-calculus as a way to express
-computation, the variable names should not go in the way, therefore we identify
-two $\lambda$-terms if they only differ in the names of bound variables, e.g.
-$\lambda x x \equiv \lambda y y$. Furthermore, we can replace any subterm of a
-$\lambda$-term by one which has been defined as equivalent.
+%% God damn it, there is something wrong with this substitution stuff, but I
+%% can't put my finger on it.
+\begin{definition}[Substitution]
+    Let $M,\, N \in \Lambda$, $x, y\in V$. We denote the
+    substitution of (free occurances of) $x$ in $M$ by $N$ as $M[N/x]$ and
+    define it as follows (here $x \neq y$):
+    \begin{align*}
+        x[N/x] &= N & \\
+        y[N/x] &= y & \\
+        (P Q)[N/x] &= P[N/x]\; Q[N/x] & \\
+        (\lambda x. P)[N/x] &= \lambda x.P & \\
+        (\lambda y. P)[N/x] &= \lambda y.P[N/x] & y \notin FV(N)
+    \end{align*}
 \end{definition}
+
+%%% @todo: make this more formal, review if I have skipped too much.
+%\begin{definition}[$\alpha$-renaming]
+%Since our intuition is to think of $\lambda$-calculus as a way to express
+%computation, the variable names should not go in the way, therefore we identify
+%two $\lambda$-terms if they only differ in the names of bound variables, e.g.
+%$\lambda x x \equiv \lambda y y$. Furthermore, we can replace any subterm of a
+%$\lambda$-term by one which has been defined as equivalent.
+%\end{definition}
 
 Now we move on to some results.
 
@@ -160,11 +169,24 @@ A crucial property of this relation is exposed by the following theorem.
     Let $M \in \Lambda$. If $M \betared^* M_1$ and $M \betared^* M_2$ then
     there exists $N$ s.t. $M_1 \betared^* N$ and $M_2 \betared^* N$.
 \end{theorem}
+\begin{proof}Omitted.\end{proof}
 
-\begin{center}
-    \texttt{<insert diagram here>}
+Here's a pretty diagram to illustrate the theorem:
+\begin{diagram}
+             &                 & M &                 &       \\
+             & \ldTo_\beta     &   & \rdTo_\beta     &       \\
+         M_1 &                 &   &                 &  M_2  \\
+             & \rdDotsto_\beta &   & \ldDotsto_\beta &       \\
+             &                 & N &                 &
+\end{diagram}
 
-    \texttt{<Add necessary corollaries>}
-\end{center}
+\begin{corollary}[Uniqueness of normal form]
+    If $M \betared^* N_1$ and $M \betared^* N_2$ and $N_1$ and $N_2$ are in
+    normal form, then $N_1 = N_2$.
+\end{corollary}
 
-%% ok, I'm really wasting too much time here, increasing pace!
+\begin{corollary}
+    If $M_1 \betared^* N_1$ and $M_2 \betared^* N_2$, $N_1 \neq N_2$ and $N_1, N_2$
+    are in normal form, then $M_1 \neq_\beta M_2$.
+\end{corollary}
+
