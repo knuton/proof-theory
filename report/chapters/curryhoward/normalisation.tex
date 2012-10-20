@@ -119,3 +119,87 @@ normalisation steps for \implnpi\ deductions.
 \mbox{ or } \mathcal{D}_1 \leadsto \mathcal{E}_1
 \]
 \end{definition}
+
+We now want to show that we can extend the isomorphism for the structures from
+\ref{section:bijection} to include the correspondence between conversion in
+$\npiproofs$ and $\beta$-reduction in $\stlambdaterms$.
+
+\begin{definition}
+\begin{align*}
+x^A[M^A/x^A] & := M^A \\
+y^B[M^A/x^A] & := y^B \mbox{ for } y \neq x \\
+(N_1^{B \to C}N_2^{B})^C[M^A/x^A] & := (N_1^{B \to C}[M^A/x^A]N_2^{B}[M^A/x^A])^C \\
+(\lambda x^A.N^B)^{A \to B}[M^A/x^A] & := (\lambda x^A.N^B)^{A \to B} \\
+(\lambda y^B.N^C)^{B \to C}[M^A/x^A] & := (\lambda y^B.N^C[M^A/x^A])^{B \to C}
+\mbox{ for } y \neq x, y \mbox{ not free in } M^A
+\end{align*}
+\end{definition}
+
+\begin{proposition}
+For $M, M' \in \stlambdaterms$, if $M \betared M'$, then $\chmapanta(M) \leadsto
+\chmapanta(M')$.
+\end{proposition}
+
+\begin{proof}
+$M \betared M'$ implies that $M = (\lambda x^A.N^B)^{A \to B}P^A:B$ for some $x,
+N, P, A, B$ and $M' = N^B[P^A/x^A]$.
+
+To prove our claim, we show that $\chmapanta((\lambda x^A.N^B)^{A \to B}P^A:B) =
+\chmapanta(N^B[P^A/x^A])$ by showing that
+$\chmapanta(N^B)[\chmapanta(P^A)/\chmapanta(x^A)]) = \chmapanta(N^B[P^A/x^A])$.
+The proof is by induction on the construction of $N^B$.
+
+For the base case $N^B \equiv y^B$ there are two possibilities:
+\begin{enumerate}[(i)]
+  \item $y^B = x^A$, then \\
+        $\chmapanta(x^A[P^A/x^A]) = \chmapanta(P^A) =
+        A^x[\chmapanta(P^A)/A^x] =
+        \chmapanta(x^A)[\chmapanta(P^A)/\chmapanta(x^A)]$
+  \item $y^B \not\equiv x^A$, then \\
+        $\chmapanta(y^B[P^A/x^A]) = \chmapanta(y^B) = B^y =
+        B^y[\chmapanta(P^A)/A^x] =
+        \chmapanta(y^B)[\chmapanta(P^A)/\chmapanta(x^A)]$
+\end{enumerate}
+
+Assume now that $N_1^{B \to C}, N_2^B$ are two terms such that
+\begin{itemize}
+\item $\chmapantasub{N_1^{B \to C}}{P^A}{x^A}
+      = \subchmapanta{N_1^{B \to C}}{P^A}{x^A}$ and
+\item $\chmapantasub{N_2^B}{P^A}{x^A} = \subchmapanta{N_2^B}{P^A}{x^A}$.
+\end{itemize}
+Then $\chmapantasub{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A}$
+\begin{align*}
+  &=
+    \subchmapanta{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A} \\
+  % By \chmapanta
+  &=
+  \implelim{%
+    \AxiomC{$\chmapantasub{N_1^{B \to C}}{P^A}{x^A}$}\noLine\UnaryInfC{$B \to C$}
+  }{%
+    \AxiomC{$\chmapantasub{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
+  }{$C$}
+  \DisplayProof \\
+  % By i.h.
+  &=
+  \implelim{%
+    \AxiomC{$\subchmapanta{N_1^{B \to C}}{P^A}{x^A}$}\noLine\UnaryInfC{$B \to C$}
+  }{%
+    \AxiomC{$\subchmapanta{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
+  }{$C$}
+  \DisplayProof \\
+  % By instantiation
+  &=
+  \left(
+  \implelim{%
+    \AxiomC{$\chmapanta(N_1^{B \to C})$}\noLine\UnaryInfC{$B \to C$}
+  }{%
+    \AxiomC{$\chmapanta(N_2^B)$}\noLine\UnaryInfC{$B$}
+  }{$C$}
+  \DisplayProof
+  \right)[\chmapanta(P^A)/\chmapanta(x^A)] \\
+  % By \chmapanta
+  &=
+  \subchmapanta{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A}
+\end{align*}
+
+\end{proof}

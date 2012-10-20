@@ -28,7 +28,16 @@
 \newcommand{\stlambdaterms}{\Lambda_\to}
 \newcommand{\chmap}{\mathcal{F}}
 \newcommand{\chmapanta}{\mathcal{F}^{-1}}
+\newcommand{\chmapantasub}[3]{\chmapanta(#1[#2/#3])}
+\newcommand{\subchmapanta}[3]{\chmapanta(#1)[\chmapanta(#2)/\chmapanta(#3)]}
 \newcommand{\betared}{\rightarrow_\beta}
+
+\newcommand{\implelim}[3]{%
+  #1
+  #2
+  \RightLabel{$\to$E}
+  \BinaryInfC{#3}
+}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
