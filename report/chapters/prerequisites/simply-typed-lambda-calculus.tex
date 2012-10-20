@@ -1,9 +1,8 @@
 \section{Simply typed $\lambda$-calculus}
 
-We shall now extend the language of untyped $\lambda$-calculus by
-adding \emph{types} for the terms. The notion of types is very natural to
-someone with a background in programming, but perhaps not so much to someone
-from the background of mathematics.
+We now consider a \emph{typed} version of $\lambda$-calculus. The notion of
+types is very natural to someone with a background in programming, but perhaps
+not so much to someone from the background of mathematics.
 
 In mathematics the role of types is played by the domain and co-domain of a
 function, e.g. when we write down $f: \mathbb{Z} \rightarrow \mathbb{N}$ we
@@ -12,11 +11,19 @@ elements of type $\mathbb{N}$ and thus has the type $\mathbb{Z} \rightarrow
 \mathbb{N}$. The number $-3$ is thus of type $\mathbb{Z}$ and a transformation like
 $x \mapsto x^2$ transforms it to $9$ which is of type $\mathbb{N}$.
 
-Again, the language of simply typed $\lambda$-calculus is a minimalistic
-extension which turns out to be very powerful. In defining it we shall follow
-the style of Church i.e. use explicit type annotations for the variables in lambda
-abstractions: $\lambda x. M$ will become $\lambda x:\sigma. M$ where
-$\sigma$ is the type.
+We shall follow the so-called Church style of typed $\lambda$-calculus, which
+uses explicit type annotations for the variable immediatelly following
+$\lambda$ in $\lambda$-abstractions, i.e. we shall write $\lambda
+x\!:\!\sigma\; M$ and say that here $x$ is of type $\sigma$. As we will see,
+this approach has the nice property of uniquely fixing the type of
+any\footnote{
+    In order to be precise, we should say ``of any \emph{typable}''
+    term, but we only define this notion later on.}
+$\lambda$ expression.
+
+We will also on the syntactic level restrict our language to \emph{typable}
+terms in order to be able to speak uniformly about arbitrary terms in the
+language.
 
 \begin{definition}
 The language of simply typed $\lambda$-calculus is built from:
@@ -27,86 +34,75 @@ The language of simply typed $\lambda$-calculus is built from:
             \alpha \in U &\Rightarrow \alpha \in \Pi \\
             \sigma, \tau \in \Pi &\Rightarrow (\sigma \to \tau) \in \Pi
         \end{align*}
-            \emph{Convention}. $\to$ associates to the right. This convention
+            \emph{Convention.} $\to$ associates to the right. This convention
             allows us to drop parentheses.
-        \item We have to modify our original set of $\lambda$-terms $\Lambda$
-            by adding explicit type annotations, so we define the set
-            $\Lambda_\Pi$ of (explicitly annotated) $\lambda$-terms as:
-                \begin{align*}
-                    x \in V & \Rightarrow x \in \Lambda_\Pi &
-                        \text{variables} \\
-                    M \in \Lambda_\Pi,\, x \in V, \sigma \in \Pi & \Rightarrow
-                    (\lambda x\!:\!\sigma\; M) \in \Lambda_\Pi &
-                        \text{$\lambda$-abstraction} \\
-                    M, N \in \Lambda_\Pi & \Rightarrow (M N) \in \Lambda_\Pi &
-                        \text{function application}
-                \end{align*}
+        \item The set $V_\Pi$ of (typed) variables:
+            \[ x \in V,\, \sigma \in \Pi \Rightarrow x\!:\!\sigma \in V_\Pi \]
                 Here $V$ is the same set of variables as in definition
                 \ref{def:untyped-lambda-calc}.
-        \item A \emph{context} is a set $\Gamma$ of pairs $x_i: \tau_i$, where $x_i \in
-        \Lambda$, $\tau_i \in \Pi$ and the $x_i$'s are unique. We denote $C$ as
-        the set of \emph{all} contexts.
-        \item The \emph{domain} of a context $\Gamma$ is defined as:
-            $dom(\Gamma) = \{x\,|\, x:\tau \in \Gamma \}$
-        \item The \emph{range} of a context $\Gamma$ is defined as:
-            $|\Gamma| = \{ \tau \,|\, x:\tau \in \Gamma\}$
-        \item Most importantly, we introduce \emph{typability} relations (or
-        \emph{rules}):
+        \item The set $\Lambda_\Pi$ of (typed) $\lambda$-terms as:
+                \begin{align*}
+                    x\!:\!\tau \in V_\Pi
+                        &\Rightarrow x\!:\!\tau \in \Lambda_\Pi &
+                            \text{(typed) variables} \\
+                    M\!:\!\tau \in \Lambda_\Pi,\, x\!:\!\sigma \in V_\Pi
+                        &\Rightarrow (\lambda x\!:\!\sigma\; M)\!:\!(\sigma \to
+                        \tau) \in \Lambda_\Pi &
+                            \text{$\lambda$-abstraction} \\
+                    M\!:\!(\sigma \to \tau),\, N\!:\!\sigma \in \Lambda_\Pi
+                        &\Rightarrow (M\, N)\!:\!\tau \in \Lambda_\Pi &
+                            \text{function application}
+                \end{align*}
+            \emph{Convention.} We will occasionally drop the type annotations
+            when they are reconstructable from the rest of the annotations, for
+            example bound variables in $\lambda$-abstractions are obviously of
+            the same type.
 
-        \texttt{(TODO: Add explanation of commas in the sequents.)}
-
-        \texttt{(TODO: How to horizontally align bussproofs?)}
-
-        Identity: \begin{prooftree}
-                        \AxiomC{}
-                        \UnaryInfC{$\Gamma, x:\tau \vdash x:\tau$}
-                        \end{prooftree}
-        Abstraction: \begin{prooftree}
-                    \AxiomC{$\Gamma, x:\sigma \vdash M:\tau$}
-                    \UnaryInfC{$\Gamma \vdash (\lambda x\!:\!\sigma\, M):\sigma \to \tau$}
-                \end{prooftree}
-
-        Application: \begin{prooftree}
-            \AxiomC{$\Gamma \vdash M:\sigma \to \tau$}
-            \AxiomC{$\Gamma \vdash N:\sigma$}
-            \BinaryInfC{$\Gamma \vdash (M\; N): \tau$}
-        \end{prooftree}
         \end{enumerate}
 \end{definition}
+\emph{Note 1.}
+    Observe that in the construction of $\Lambda_\Pi$ we are actually coupling the
+    term construction with the typability rules for the types. This removes the
+    need for explicit typability rules because we ensure that all of our terms
+    are well-typed be definition.
 
+\emph{Note 2.}
+    The set $\Lambda_\Pi$ differs in a crucial way from the set of
+    untyped terms $\Lambda$ in def.  \ref{def:untyped-lambda-calc}.
+    Namely, we only allow application of $\lambda$-abstractions on a
+    term with a matching type.  Given the intuition that
+    $\lambda$-abstractions are functions, this restriction feels
+    reasonable (since the function should be applied only on the
+    `correct' type of input), but in fact this removes fixed-point
+    combinators and the possibility to express recursion within this
+    language. The reason for it is that our type language is not
+    expressive enough for the notion of recursion. For example, it's
+    not possible to assign any type to the expression $\lambda x.\; x\,
+    x$. Nevertheless, this is not a particular problem for us, since in
+    the context of CHI we only care about the well-typed terms.
+    %% @todo: get references for these wonderful claims
 
-\begin{lemma}[Generation lemma]{\ }
-\begin{enumerate}[(i)]
-        \item $\Gamma \vdash x:\tau$ implies $x:\tau \in \Gamma$
-        \item $\Gamma \vdash (M N):\tau$ implies that there exists a type
-            $\tau$ s.t. $\Gamma \vdash M: \sigma \to \tau$ and $\Gamma \vdash
-            N:\sigma$.
-        \item $\Gamma \vdash \lambda x\!:\!\sigma\; M:\rho$ implies that $\rho = \sigma
-            \to \tau$ and $\Gamma, x:\sigma \vdash M:\tau$.
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    All of the proofs follow by induction on the length of the derivation, so we
-    shall only prove it for case \emph{(iii)}. \texttt{TRIVIAL, HAHA. (@todo)}
-\end{proof}
+The definitions of \emph{free variables}, \emph{substitution} and
+$\beta$-reduction remain the same as in the case for untyped
+$\lambda$-calculus, we only need change all untyped term occurances with
+explicitly typed ones. Furthermore, it's worth noting that it only makes sense
+to talk about $\beta$-reduction of \emph{a} term in $\Lambda_\Pi$, i.e. $(M\,
+N) \in \Lambda_\Pi$, but not of $(M\!:\!\sigma\; N\!:\!\tau)$, where $M:\sigma, N:\tau
+\in \Lambda_\Pi$ since $(M\!:\!\sigma\; N\!:\!\tau)$ might not be well-typed and
+hence not part of our language, so it doesn't make sense to talk about
+$\beta$-redutions of it.
 
-\begin{proposition}[Subject reduction]
-    $\Gamma \vdash M:\sigma$ and $M \betared N$ implies $\Gamma \vdash
-    N:\sigma$.
+We do however need to make sure that substitution is $\emph{closed}$ in
+$\Lambda_\Pi$.
+
+\begin{proposition}[Subject reduction/expansion]
+    $M:\sigma \betared N:\tau$ implies $\sigma = \tau$.
 \end{proposition}
 \begin{proof}
-    \texttt{TBD.}
+    By induction on the complexity of the terms.
 \end{proof}
 
-\begin{proposition}[Uniqueness of types] {\ }
-    \begin{enumerate}[(i)]
-        \item $\Gamma \vdash M:\sigma$ and $\Gamma \vdash M:\tau$ implies
-            $\sigma = \tau$.
-        \item $\Gamma \vdash M:\sigma$ and $\Gamma \vdash N:\tau$ and $M =_\beta
-            N$, then $\sigma = \tau$.
-    \end{enumerate}
-\end{proposition}
-\begin{proof}
-    \texttt{TBD.}
-\end{proof}
+\begin{corollary}[Uniqueness of types] {\ }
+    If $M:\sigma =_\beta N:\tau$ then $\sigma = \tau$.
+\end{corollary}
 
