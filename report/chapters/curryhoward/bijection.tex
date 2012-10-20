@@ -21,7 +21,7 @@ We give a bijection $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npipr
 of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
 
 \begin{alignat*}{2}
-\chmap(A^u) &= u: A \\[6pt]
+\chmap(A^u) &:= u: A \\[6pt]
 \chmap\left(
   \AxiomC{$\mathcal{D}_1$}
   \noLine
@@ -32,7 +32,7 @@ of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda 
   \RightLabel{$\to$E}
   \BinaryInfC{$B$}
   \DisplayProof
-\right) &= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[6pt]
+\right) &:= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[6pt]
 \chmap\left(
   \AxiomC{$[A]^u$}
   \noLine
@@ -42,7 +42,7 @@ of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda 
   \RightLabel{$\to$I, $u$}
   \UnaryInfC{$A \to B$}
   \DisplayProof
-\right) &= (\lambda u: A.\chmap(\mathcal{D})): A \to B
+\right) &:= (\lambda u: A.\chmap(\mathcal{D})): A \to B
 \end{alignat*}
 
 \begin{proposition}
@@ -57,8 +57,8 @@ We additionally define a function $\stlambdaterms \to \npiproofs$, suggestively
 named $\chmapanta$:
 
 \begin{alignat*}{2}
-\chmapanta(u: A) &= A^u \\[6pt]
-\chmapanta((M^{A \to B})(N^A): B) &=
+\chmapanta(u: A) & := A^u \\[6pt]
+\chmapanta((M^{A \to B})(N^A): B) &:=
   \AxiomC{$\chmapanta(M^{A \to B})$}
   \noLine
   \UnaryInfC{$A \to B$}
@@ -68,7 +68,7 @@ named $\chmapanta$:
   \RightLabel{$\to$E}
   \BinaryInfC{B}
   \DisplayProof \\[6pt]
-\chmapanta((\lambda u:A.M^B):A \to B) &=
+\chmapanta((\lambda u:A.M^B):A \to B) &:=
   \AxiomC{$\chmapanta(M^B)$}
   \noLine
   \UnaryInfC{$B$}
