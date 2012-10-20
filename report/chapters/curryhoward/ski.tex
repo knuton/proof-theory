@@ -1,0 +1,109 @@
+\section{Combinators and Axioms}
+
+The main result of the previous section is known under various names, among them
+the \textit{formulas-as-types} and \textit{proofs-as-programs} interpretations.
+When we showed three exemplary deductions of axioms of propositional logic in
+\ref{sec:naturaldeduction}, we took care to sneak in something that would make
+sense in the light of these interpretations. The three axioms that were deduced
+correspond to typed instances of three \textit{combinators} that are known as
+$\mathsf{I}$, $\mathsf{K}$ and $\mathsf{S}$ in the literature:
+\begin{align*}
+\mathsf{I} &=
+  (\lambda u^A.u)^A \\
+\mathsf{K} &=
+  (\lambda u^A.
+     (\lambda v^B.u)
+  )^{A \to B \to A} \\
+\mathsf{S} &=
+  (\lambda u^{A \to B \to C}.
+     (\lambda w^{A \to B}.
+       (\lambda v^A.(uv)(wv))
+     )
+  )^{(A \to B \to C) \to ((A \to B) \to (A \to C))}
+\end{align*}
+The system consisting of the $\mathsf{SKI}$ combinators is a well-studied Turing
+complete system. While $\mathsf{SKI}$ due to its bare manner is of theoretical
+interest only, it is not a minimal system. Instead, already the system
+$\mathsf{SK}$ is Turing complete, as $\mathsf{I}$ can be obtained by combining
+$\mathsf{S}$ and $\mathsf{K}$. Looking at the combinators as given above, we see
+a problem with this. We can neither apply $\mathsf{S}$ to $\mathsf{K}$ nor
+$\mathsf{K}$ to $\mathsf{S}$, because the types don't match.
+
+Unless we treat each of the combinators as a schema to be instantiated by
+assigning types to the type meta-variables occuring in the expression, we will
+have to construct appropriate combinators for specific types. Because of the
+workings of \implnpi\ we know that we could always do that by using the
+appropriate simple types from $\Pi$ as assumptions in the appropriate places. We
+can therefore justify the meta-rule of using the combinators above as schemas.
+
+We will now combine appropriate instances of $\mathsf{S}$ and $\mathsf{K}$ to
+yield $\mathsf{I}$. To better manage the size of the expressions, we will omit
+types where unproblematic and use variables for terms.
+\begin{align*}
+\mathsf{S} &=
+(\lambda u^{(A \to (B \to A) \to A) \to (A \to (B \to A)) \to (A \to A)}.
+  (\lambda w^{A \to B \to A}.
+    (\lambda v^A.(uv)(wv))
+  )
+) \\
+\mathsf{K_1} &=
+(\lambda u_1^A.
+  (\lambda v_1^{B \to A}.u)
+) \\
+\mathsf{K_2} &=
+(\lambda u_2^A.
+  (\lambda v_2^B.u)
+) \\
+\mathsf{(SK)K} &=_\beta
+(
+  (\lambda u^{(A \to (B \to A) \to A) \to (A \to (B \to A)) \to (A \to A)}.
+    (\lambda w^{A \to B \to A}.
+      (\lambda v^A.(uv)(wv))
+    )
+  )
+  \mathsf{K_1}
+)
+\mathsf{K_2} \\
+&=_\beta
+(\lambda w^{A \to B \to A}.
+  (\lambda v^A.(\mathsf{K_1}v)(wv))
+)
+\mathsf{K_2} \\
+&=_\beta
+(\lambda v^A.(\mathsf{K_1}v)(\mathsf{K_2}v)) \\
+&=_\beta
+(\lambda v^A.
+  ((\lambda u_1^A.
+    (\lambda v_1^{B \to A}.u)
+  )v)
+  (\mathsf{K_2}v)
+) \\
+&=_\beta
+(\lambda v^A.
+  (\lambda v_1^{B \to A}.v)
+  (\mathsf{K_2}v)
+) \\
+&=_\beta
+(\lambda v^A.
+  (\lambda v_1^{B \to A}.v)
+  ((\lambda u_2^A.
+     (\lambda v_2^B.u_2)
+  )v)
+) \\
+&=_\beta
+(\lambda v^A.
+  (\lambda v_1^{B \to A}.v)
+  (\lambda v_2^B.v)
+) \\
+&=_\beta
+(\lambda v^A.v) \\
+&=
+\mathsf{I}
+\end{align*}
+We were thus able to derive $\mathsf{I}$, given we identify terms that differ only in
+the names of bound variables.
+
+It would be interesting to see what transformations are being made on the
+corresponding deduction trees while we following steps of $\beta$-reduction.
+Alas, the terms above become very complicated when translated into
+deductions. We will have to look at some simpler examples.
