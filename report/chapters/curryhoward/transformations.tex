@@ -1,0 +1,64 @@
+\section{Transformations}
+
+Since by \ref{cor:uniquenessoftypes} we know that the types of any terms, that
+are equivalent under $\to_\beta$, coincide, we can say that the deductions
+corresponding to $(\mathsf{SK_1})\mathsf{K_2}$ and $\mathsf{I}$ must possess the
+same conclusion. Clearly, the deduction corresponding to $\mathsf{I}$ will be
+more economical. We can also see that the term $\mathsf{I}$ is in normal form.
+This example could tempt us to think that the normal form is a way of
+economically notating a function or that proofs corresponding to normal forms
+are more concise. But this is not generally the case.\\
+\\
+Consider the term
+\[
+(\lambda v^{A \to B}.
+  v(u^{(A \to B) \to A}v)
+)(
+  w^{(C \to D) \to (A \to B)}(\lambda y^C.x^D)
+)
+\]
+and its one-step conversum
+\[
+(w^{(C \to D) \to (A \to B)}(\lambda y^C.x^D))(u^{(A \to B) \to A}w^{(C \to D) \to (A \to B)}(\lambda y^C.x^D))
+\]
+with corresponding deduction trees
+\begin{prooftree}
+\scriptsize
+\implelim{%
+  \implintro{%
+    \implelim{\AxiomC{$A \to B^v$}}{%
+      \implelim{\AxiomC{$(A \to B) \to A^u$}}{\AxiomC{$A \to B^v$}}{A}
+    }{$B$}
+  }{v}{$(A \to B) \to B$}
+}{%
+  \implelim{\AxiomC{$(C \to D) \to (A \to B)^w$}}{%
+    \implintro{\AxiomC{$D^x$}}{y}{$C \to D$}
+  }{$A \to B$}
+}{$B$}
+\end{prooftree}
+and
+\begin{prooftree}
+\scriptsize
+\implelim{%
+  \implelim{\AxiomC{$(C \to D) \to (A \to B)^w$}}{%
+    \implintro{\AxiomC{$D^x$}}{y}{$C \to D$}
+  }{$A \to B$}
+}{%
+  \implelim{%
+    \AxiomC{$(A \to B) \to A^u$}
+  }{%
+    \implelim{\AxiomC{$(C \to D) \to (A \to B)^w$}}{%
+      \implintro{\AxiomC{$D^x$}}{y}{$C \to D$}
+    }{$A \to B$}
+  }{A}
+}{$B$}
+\end{prooftree}
+. Both do not seem like improvements in use of space, ink or memory. And looking
+at it from the perspective of lambda functions this makes intuitive sense:
+Functional abstraction allows us to assign a name to a term and then refer to it
+multiple times without writing out the full corresponding expression each time.
+Analogously, the use of detours in deductions allows us to appeal to
+another proof multiple times without spelling it out over and over. Then, if
+necessary, we can instantiate the proof at the appropriate positions. In hope to
+transfer more ideas from one structure to the other, we will look at the
+relation of normalisation in deductions and lambda terms in some detail.
