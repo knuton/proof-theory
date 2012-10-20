@@ -86,15 +86,13 @@ The language of simply typed $\lambda$-calculus is built from:
 The definitions of \emph{free variables}, \emph{substitution} and
 $\beta$-reduction remain the same as in the case for untyped
 $\lambda$-calculus, we only need to replace all untyped term occurrences with
-explicitly typed ones. Furthermore, it's worth noting that it only makes sense
-to talk about $\beta$-reduction of \emph{a} term in $\Lambda_\Pi$, i.e. $(M\,
-N) \in \Lambda_\Pi$, but not of $(M\!:\!\sigma\; N\!:\!\tau)$, where $M:\sigma, N:\tau
-\in \Lambda_\Pi$ since $(M\!:\!\sigma\; N\!:\!\tau)$ might not be well-typed and
-hence not part of our language, so it doesn't make sense to talk about
+explicitly typed ones, hence Church-Rosser theorem and it's colloraries hold
+too. Furthermore, it's worth noting that it only makes sense to talk about
+$\beta$-reduction of \emph{a} term in $\Lambda_\Pi$, i.e. $(M\, N) \in
+\Lambda_\Pi$, but not of $(M\!:\!\sigma\; N\!:\!\tau)$, where $M:\sigma, N:\tau
+\in \Lambda_\Pi$ since $(M\!:\!\sigma\; N\!:\!\tau)$ might not be well-typed
+and hence not part of our language, so it doesn't make sense to talk about
 $\beta$-redutions of it.
-
-We do however need to make sure that substitution is $\emph{closed}$ in
-$\Lambda_\Pi$.
 
 \begin{proposition}[Subject reduction/expansion]
     $M:\sigma \betared N:\tau$ implies $\sigma = \tau$.
@@ -108,3 +106,81 @@ $\Lambda_\Pi$.
     If $M:\sigma =_\beta N:\tau$ then $\sigma = \tau$.
 \end{corollary}
 
+Some very important results on \emph{normalisation} can be established in
+Church-style simply typed $\lambda$-calculus.
+\begin{theorem}[Weak normalisation]
+    For any $M:\tau \in \Lambda_\Pi$, there exists a reduction strategy which
+    `terminates' in a finite number of steps, i.e. there exists a sequence
+    $M:\tau \betared M_1 \betared \ldots \betared M_n:\tau$, where $M_n:\tau$
+    is in normal form.
+\end{theorem}
+
+Note that this does \emph{not} hold for untyped $\lambda$ calculus, since we
+have seen that for example the term $(\lambda x.\, x x\;\; \lambda x. x x)$
+cannot be reduced to a normal form. For any type assignment, this term is not
+an element of $\Lambda_\Pi$ (this follows easily from the subject reduction
+property), so this does not contradict the theorem.
+
+\begin{proof}
+    Here we state the standard proof due to Turing and Prawitz.
+    Firstly, observe that a type can be viewed as a binary tree (type variables
+    are leaves and $\to$ is an edge) and let $d:\Pi \to \mathbb{N}$ be the
+    depth of the corresponding tree (we define the depth of a leave to be $0$).
+    Furthermore, define the depth of a redex $(M\!:\!\sigma\; N\!:\!\tau)$ as
+    $d(\sigma)$. If a term is in normal form we define its depth to be $0$.
+    Now for each $M \in \Lambda_\Pi$ we define:
+    \begin{align*}
+        m(M) &= (0, 0) \text{, if $M$ is in normal form } \\
+        m(M) &= (d_{max}(M), r(M)) \\
+    \shortintertext{where}
+        d_{max}(M) &= \max\{d(R)\, |\, \text{R is a redex in $M$}\} \\
+    \shortintertext{and}
+        r(M) &= \text{ number of maximal redexes in $M$ (i.e. of depth $d_{max}(M))$}
+    \end{align*}
+
+    We prove the result by induction on lexicographically ordered tuples $m(M)$.
+    For the base case of $m(M) = (0, 0)$ we know that $M$ is in normal form and
+    there is nothing to prove.
+    Assume the result holds for all $M$ such that $m(M) < (n, m)$. Let $m(M)$
+    be such that $m(M) = (n, m)$. Obviously $M$ is not in normal form. We will
+    now describe a strategy of $\beta$-reducing $M$ to $N$ so that either the
+    number of maximal redexes decreases or $d_{max}(N) < d_{max}(M)$. Pick the
+    rightmost maximal redex $R$ in $M$. Let $N$ be
+    obtained after applying $\beta$-reduction on $M$ to $R$. We claim that this
+    reduction can only introduce new redexes of strictly smaller depth than
+    $d_{max}(M)$. We distinguish two cases:
+    \begin{enumerate}[a)]
+        \item One possibility of introducing more redexes is when in the
+        redex $R = (\lambda x.\, P)\; Q$ there is more than one free occurrence
+        of $x$ in $P$ and we are potentially copying redexes from $Q$, but we
+        are safe because we know that they can only be of lower depth, since
+        redexes in $Q$ are to the right of $R$ and hence cannot be maximal
+        \item The other possibility is we construct new redexes, which can
+        happen in three ways:
+            \begin{enumerate}[1)]
+                \item $R$ is of the form $(\lambda x\!:\!(\sigma\to\tau).
+                    \ldots x P \ldots) (\lambda y. Q) \betared
+                        (\ldots (\lambda y. Q) P \ldots )$, then
+                        $d_{max}((\lambda y. Q) P) < d_{max}(N)$
+
+                \item $R$ appears in $M$ as $(R\; Q)$ and
+                after reduction becomes a new redex of the form $(\lambda x
+                P)\; Q$, then $R$ could have been of the form $(\lambda y.
+                \lambda x. P') W$, hence of greater depth.
+
+                \item Again, $R$ appears in $M$ as $(R\; Q)$ and after reduction
+                becomes a new redex of the form $(\lambda x. P) Q$, then $R$
+                could have also been of the form $(\lambda y. y) (\lambda x.
+                P)$, which is again of greater depth.
+            \end{enumerate}
+    \end{enumerate}
+    Hence in all cases either the value of $d_{max}$ is strictly smaller or the
+    number of maximal redexes reduces and thus by induction hypothesis we are
+    done.
+\end{proof}
+
+In fact, a much stronger result holds but we will not prove it here:
+\begin{theorem}[Strong normalisation]
+    Let $M \in \Lambda_\Pi$, then any sequence of $\beta$-reductions
+    starting in $M$ terminates in a finite of number of steps in a normal form.
+\end{theorem}
