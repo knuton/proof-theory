@@ -1,0 +1,244 @@
+\section{Normalisation}
+
+\begin{definition}[Proof Instantiation]
+We define a function for replacing all occurences of an open assumption $A^u$ in
+a deduction tree $\mathcal{D}$ by a deduction $\mathcal{E}$ of $A$, written as
+$\mathcal{D}[\mathcal{E}/A^u]$. We say we produce $\mathcal{D}[\mathcal{E}/A^u]$
+by \textit{instantiating $u$ in $\mathcal{D}$ with $\mathcal{E}$}.
+
+\[
+  \mathcal{D}[\mathcal{E}/A^u] =
+  \left\{
+  \begin{array}{ll}
+  \mathcal{E} & \mbox{if } \mathcal{D} = A^u \\[6pt]
+  \mathcal{D} & \mbox{if } \mathcal{D} = B^v, v \neq u \\[10pt]
+  \mathcal{D} & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$C$}
+    \RightLabel{$\to$I, $u$}
+    \UnaryInfC{$B \to C$}
+    \DisplayProof \\[20pt]
+  \AxiomC{$\mathcal{D}'[\mathcal{E}/A^u]$}
+  \noLine
+  \UnaryInfC{$C$}
+  \RightLabel{$\to$I, $v$}
+  \UnaryInfC{$B \to C$}
+  \DisplayProof & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$C$}
+    \RightLabel{$\to$I, $v$}
+    \UnaryInfC{$B \to C$}
+    \DisplayProof, v \neq u \\[24pt]
+  \AxiomC{$\mathcal{D}'[\mathcal{E}/A^u]$}
+  \noLine
+  \UnaryInfC{$B \to C$}
+  \AxiomC{$\mathcal{D}''[\mathcal{E}/A^u]$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$C$}
+  \DisplayProof & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$B \to C$}
+    \AxiomC{$\mathcal{D}''$}
+    \noLine
+    \UnaryInfC{$B$}
+    \RightLabel{$\to$E}
+    \BinaryInfC{$C$}
+    \DisplayProof
+  \end{array}
+  \right.
+\]
+\end{definition}
+
+\begin{definition}[Conversion]
+We define a relation $\leadsto \subseteq \npiproofs\times\npiproofs$ that
+captures the notion of normalisation steps for \implnpi\ deductions. For
+$\mathcal{D}\leadsto\mathcal{E}$ we say \textit{$\mathcal{D}$ converts to
+$\mathcal{E}$}.
+
+\[
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\ \leadsto\ \mathcal{D}[A^u/\mathcal{D}_1]
+\]
+
+% TODO Do we need this? This is more than beta-reduction, capturing changes
+% within a subtree of a tree.
+
+\[
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\ \leadsto\ 
+  \AxiomC{$[A]^u$}
+  \noLine
+  \UnaryInfC{$\mathcal{E}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\mbox{if } \mathcal{D} \leadsto \mathcal{E}
+\]
+
+\[
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\ \leadsto\ 
+  \AxiomC{$\mathcal{E}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{E}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\mbox{ if } \mathcal{D}_1 \leadsto \mathcal{E}_1
+\mbox{ or } \mathcal{D}_1 \leadsto \mathcal{E}_1
+\]
+\end{definition}
+
+We now want to show that we can extend the isomorphism for the structures from
+\ref{section:bijection} to include the correspondence between conversion in
+$\npiproofs$ and $\beta$-reduction in $\stlambdaterms$.
+
+\begin{definition}
+\begin{align*}
+x^A[M^A/x^A] & := M^A \\
+y^B[M^A/x^A] & := y^B \mbox{ for } y \neq x \\
+(N_1^{B \to C}N_2^{B})^C[M^A/x^A] & := (N_1^{B \to C}[M^A/x^A]N_2^{B}[M^A/x^A])^C \\
+(\lambda x^A.N^B)^{A \to B}[M^A/x^A] & := (\lambda x^A.N^B)^{A \to B} \\
+(\lambda y^B.N^C)^{B \to C}[M^A/x^A] & := (\lambda y^B.N^C[M^A/x^A])^{B \to C}
+\mbox{ for } y \neq x, y \mbox{ not free in } M^A
+\end{align*}
+\end{definition}
+
+\begin{proposition}
+For $M, M' \in \stlambdaterms$, if $M \betared M'$, then $\chmapanta(M) \leadsto
+\chmapanta(M')$.
+\end{proposition}
+\noindent\emph{Remark.}
+As noted in \ref{def:stlambda}, $M \betared M'$ implies that $M = (\lambda
+x^A.N^B)^{A \to B}P^A:B$ and $M' = N^B[P^A/x^A]$ for some $x, N, P, A, B$.
+\begin{proof}
+We first establish that $\chmapanta((\lambda x^A.N^B)^{A \to B}P^A:B) \leadsto
+\chmapanta(N^B)[\chmapanta(P^A)/\chmapanta(x^A)]$:
+\begin{align*}
+\lefteqn{\chmapanta((\lambda x^A.N^B)^{A \to B}P^A:B)} \\[10pt]
+  &= \implelim{%
+       \AxiomC{$\chmapanta((\lambda x^A.N^B)^{A \to B})$}
+       \noLine
+       \UnaryInfC{$A \to B$}
+     }{%
+       \AxiomC{$\chmapanta(P^A)$}
+       \noLine
+       \UnaryInfC{$A$}
+     }{B}
+     \DisplayProof
+     \tag{by def. $\chmapanta$} \\[10pt]
+  &= \implelim{%
+       \implintro{
+         \AxiomC{$\chmapanta(N^B)$}
+         \noLine
+         \UnaryInfC{B}
+       }{x}{$A \to B$}
+     }{%
+       \AxiomC{$\chmapanta(P^A)$}
+       \noLine
+       \UnaryInfC{$A$}
+     }{B}
+     \DisplayProof
+     \tag{by def. $\chmapanta$} \\[10pt]
+  &\leadsto \chmapanta(N^B)[\chmapanta(P^A)/\chmapanta(x^A)]
+     \tag{by def. $\leadsto$}
+\end{align*}
+We use this result to show that $\chmapanta((\lambda x^A.N^B)^{A \to B}P^A:B)
+\leadsto \chmapanta(N^B[P^A/x^A])$ by showing that
+$\chmapanta(N^B[P^A/x^A]) = \chmapanta(N^B)[\chmapanta(P^A)/\chmapanta(x^A)])$.
+The proof is by induction on the construction of $N^B$. \\
+\\
+For the base case $N^B \equiv y^B$ there are two possibilities:
+\begin{enumerate}[(i)]
+  \item $y^B = x^A$, then \\
+        $\chmapanta(x^A[P^A/x^A]) = \chmapanta(P^A) =
+        A^x[\chmapanta(P^A)/A^x] =
+        \chmapanta(x^A)[\chmapanta(P^A)/\chmapanta(x^A)]$
+  \item $y^B \not\equiv x^A$, then \\
+        $\chmapanta(y^B[P^A/x^A]) = \chmapanta(y^B) = B^y =
+        B^y[\chmapanta(P^A)/A^x] =
+        \chmapanta(y^B)[\chmapanta(P^A)/\chmapanta(x^A)]$
+\end{enumerate}
+Assume now that $N_1^{B \to C}, N_2^B$ are two terms such that
+\begin{itemize}
+\item $\chmapantasub{N_1^{B \to C}}{P^A}{x^A}
+      = \subchmapanta{N_1^{B \to C}}{P^A}{x^A}$ and
+\item $\chmapantasub{N_2^B}{P^A}{x^A} = \subchmapanta{N_2^B}{P^A}{x^A}$.
+\end{itemize}
+We treat the case for $\lambda$-abstraction with a typed variable $y^D \not\equiv
+x^A$. The case where $y^D \equiv x^A$ can be checked by looking at the
+definitions of term subtitution and proof instantiation and is excluded for
+brevity. The case for function application is included in the appendix to be
+referenced if need be.
+
+\begin{align*}
+\lefteqn{\chmapantasub{(\lambda y^D.N_2^B)^{D \to B}}{P^A}{x^A}} \\[10pt]
+  &=
+  \chmapanta((\lambda y^D.N_2^B[P^A/x^A])^{D \to B})
+  \tag{by substitution}\\[10pt]
+  % By \chmapanta
+  &=
+  \implintro{%
+    \AxiomC{$\chmapantasub{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
+  }{y}{$D \to B$}
+  \DisplayProof \tag{by def. $\chmapanta$}\\[10pt]
+  % By i.h.
+  &=
+  \implintro{%
+    \AxiomC{$\subchmapanta{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
+  }{y}{$D \to B$}
+  \DisplayProof \tag{by I.H.}\\[10pt]
+  % By instantiation
+  &=
+  \left(
+  \implintro{%
+    \AxiomC{$\chmapanta(N_2^B)$}\noLine\UnaryInfC{$B$}
+  }{y}{$D \to B$}
+  \DisplayProof
+  \right)[\chmapanta(P^A)/\chmapanta(x^A)] \tag{by instantiation} \\[10pt]
+  % By \chmapanta
+  &= \subchmapanta{(\lambda y^D.N_2^B)^{D \to B}}{P^A}{x^A} \tag{by def. $\chmapanta$}
+\end{align*}
+
+\end{proof}
+
+\begin{definition}[$\leadsto^*$]
+$\leadsto^*$ is the transitive closure of $\leadsto$.
+\end{definition}

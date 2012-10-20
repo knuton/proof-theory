@@ -1,0 +1,41 @@
+\chapter*{Appendix}
+
+\begin{align*}
+\lefteqn{\chmapantasub{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A}} \\
+  &=
+  \chmapanta{(N_1^{B \to C}[P^A/x^A]N_2^B[P^A/x^A])^C}
+  \tag{by substitution} \\[10pt]
+  % By \chmapanta
+  &=
+  \implelim{%
+    \AxiomC{$\chmapantasub{N_1^{B \to C}}{P^A}{x^A}$}\noLine\UnaryInfC{$B \to C$}
+  }{%
+    \AxiomC{$\chmapantasub{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
+  }{$C$}
+  \DisplayProof
+  \tag{by def. $\chmapanta$} \\[10pt]
+  % By i.h.
+  &=
+  \implelim{%
+    \AxiomC{$\subchmapanta{N_1^{B \to C}}{P^A}{x^A}$}\noLine\UnaryInfC{$B \to C$}
+  }{%
+    \AxiomC{$\subchmapanta{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
+  }{$C$}
+  \DisplayProof
+  \tag{by I.H.} \\[10pt]
+  % By instantiation
+  &=
+  \left(
+  \implelim{%
+    \AxiomC{$\chmapanta(N_1^{B \to C})$}\noLine\UnaryInfC{$B \to C$}
+  }{%
+    \AxiomC{$\chmapanta(N_2^B)$}\noLine\UnaryInfC{$B$}
+  }{$C$}
+  \DisplayProof
+  \right)[\chmapanta(P^A)/\chmapanta(x^A)]
+  \tag{by instantiation} \\[10pt]
+  % By \chmapanta
+  &=
+  \subchmapanta{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A}
+  \tag{by def. $\chmapanta$}
+\end{align*}
