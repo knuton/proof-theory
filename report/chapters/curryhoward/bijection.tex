@@ -7,19 +7,16 @@ string $M'$.
 \end{definition}
 
 \begin{theorem}[Curry-Howard Isomorphism]
-
 The natural deduction system \implnpi\ consisting of the set $\npiproofs$ of
 deduction trees with implication introduction and implication elimination as
 operations is isomorphic to the term calculus \stlambda\ consisting of the set
 $\stlambdaterms$ of simply-typed lambda terms with functional abstraction and
 function application as operations.
-
 \end{theorem}
 
 \begin{proof}
 We give a bijection $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npiproofs$
 of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
-
 \begin{alignat*}{2}
 \chmap(A^u) &:= u: A \\[6pt]
 \chmap\left(
@@ -34,9 +31,7 @@ of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda 
   \DisplayProof
 \right) &:= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[6pt]
 \chmap\left(
-  \AxiomC{$[A]^u$}
-  \noLine
-  \UnaryInfC{$\mathcal{D}$}
+  \AxiomC{$\mathcal{D}$}
   \noLine
   \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
@@ -53,25 +48,18 @@ If $\mathcal{D}$ is a deduction of $A$, then $\chmap(\mathcal{D})$ has type $A$.
 By induction on the complexity of $\mathcal{D}$.
 \end{proof}
 
-We additionally define a function $\stlambdaterms \to \npiproofs$, suggestively
-named $\chmapanta$:
-
+\noindent We additionally define a function $\stlambdaterms \to \npiproofs$,
+suggestively named $\chmapanta$:
 \begin{alignat*}{2}
 \chmapanta(u: A) & := A^u \\[6pt]
 \chmapanta((M^{A \to B})(N^A): B) &:=
   \AxiomC{$\chmapanta(M^{A \to B})$}
-  \noLine
-  \UnaryInfC{$A \to B$}
   \AxiomC{$\chmapanta(N^A)$}
-  \noLine
-  \UnaryInfC{$A$}
   \RightLabel{$\to$E}
   \BinaryInfC{B}
   \DisplayProof \\[6pt]
 \chmapanta((\lambda u:A.M^B):A \to B) &:=
   \AxiomC{$\chmapanta(M^B)$}
-  \noLine
-  \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
   \UnaryInfC{$A \to B$}
   \DisplayProof
@@ -85,18 +73,20 @@ For any lambda term $M^A$, $\chmapanta(M^A)$ is a proof of $A$.
 By induction on the complexity of lambda terms.
 \end{proof}
 
-We now show that $\chmap$ is a bijection by showing that
+\noindent We now show that $\chmap$ is a bijection by showing that
 \begin{itemize}
 \item[(i)] $\chmapanta \circ \chmap = id_{\npiproofs}$ and
 \item[(ii)] $\chmap \circ \chmapanta = id_{\stlambdaterms}$.
 \end{itemize}
 The proof is by induction on the construction of deduction trees and lambda
-terms respectively.
-
+terms respectively.\\
+\\
+\noindent (i) $\chmapanta \circ \chmap = id_{\npiproofs}$
+% Base case
 \[
 \chmapanta(\chmap(A^u)) = \chmapanta(u:A) = A^u = id_{\npiproofs}(A^u)
 \]
-
+% Impl elim
 \begin{align*}
 \chmapanta\left(\chmap\left(
   \AxiomC{$\mathcal{D}_1$}
@@ -145,12 +135,10 @@ terms respectively.
   \DisplayProof
   \right)
 \end{align*}
-
+% Impl intro
 \begin{align*}
 \chmapanta\left(\chmap\left(
-  \AxiomC{$[A]^u$}
-  \noLine
-  \UnaryInfC{$\mathcal{D}$}
+  \AxiomC{$\mathcal{D}$}
   \noLine
   \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
@@ -168,9 +156,7 @@ terms respectively.
   \UnaryInfC{$A \to B$}
   \DisplayProof \tag{By def. $\chmapanta$} \\[6pt]
 & =
-  \AxiomC{$[A]^u$}
-  \noLine
-  \UnaryInfC{$\mathcal{D}$}
+  \AxiomC{$\mathcal{D}$}
   \noLine
   \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
@@ -178,9 +164,7 @@ terms respectively.
   \DisplayProof \tag{By induction hypothesis} \\[6pt]
 & =
   id_{\npiproofs}\left(
-  \AxiomC{$[A]^u$}
-  \noLine
-  \UnaryInfC{$\mathcal{D}$}
+  \AxiomC{$\mathcal{D}$}
   \noLine
   \UnaryInfC{$B$}
   \RightLabel{$\to$I, $u$}
@@ -189,10 +173,12 @@ terms respectively.
   \right)
 \end{align*}
 
+\noindent (ii) $\chmap \circ \chmapanta = id_{\stlambdaterms}$
+% Base case
 \begin{align*}
 \chmap(\chmapanta(u:A)) & = \chmap(A^u) = u:A = id_{\stlambdaterms}(u:A)
 \end{align*}
-
+% Function application
 \begin{align*}
 \chmap(\chmapanta(M^{A \to B}N^A:B)) & =
   \chmap\left(
@@ -215,7 +201,7 @@ terms respectively.
 & =
   id_{\stlambdaterms}(M^{A \to B}N^A:B)
 \end{align*}
-
+% lambda abstraction
 \begin{align*}
 \chmap(\chmapanta((\lambda u:A.M^B):A \to B)) &=
   \chmap\left(
@@ -238,5 +224,5 @@ terms respectively.
 
 The correspondence of implication introduction with functional abstraction, and
 implication elimination with function application is immediate from the
-definition of $\chmap$ and $\chmapanta$.
+definition of $\chmap$ and $\chmapanta$ and omitted for brevity.
 \end{proof}
