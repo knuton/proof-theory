@@ -53,11 +53,20 @@ binds the variable in front of it, hence we have the definition:
 Conversely, we say that a variable $x$ occurring in $M$ is \emph{bound} if it is
 not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
 
-We denote $M[N/x]$ to mean substituting all free occurrences of $x$ in $M$ by $N$.
-%% Write it out explicitly here as in the book?
-
-{\center \texttt{Need to talk about variable naming convention/avoiding free
-    variable capture after substitution.}}
+%% God damn it, there is something wrong with this substitution stuff, but I
+%% can't put my finger on it.
+\begin{definition}[Substitution]
+    Let $M,\, N \in \Lambda$, $x, y\in V$. We denote the
+    substitution of (free occurances of) $x$ in $M$ by $N$ as $M[N/x]$ and
+    define it as follows (here $x \neq y$):
+    \begin{align*}
+        x[N/x] &= N & \\
+        y[N/x] &= y & \\
+        (P Q)[N/x] &= P[N/x]\; Q[N/x] & \\
+        (\lambda x. P)[N/x] &= \lambda x.P & \\
+        (\lambda y. P)[N/x] &= \lambda y.P[N/x] & y \notin FV(N)
+    \end{align*}
+\end{definition}
 
 %% @todo: make this more formal, review if I have skipped too much.
 \begin{definition}[$\alpha$-renaming]
