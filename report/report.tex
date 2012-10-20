@@ -14,6 +14,8 @@
 \usepackage{amssymb}
 \usepackage{enumerate}
 
+\usepackage{bussproofs}
+
 \usepackage{microtype}
 \setkomafont{sectioning}{\rmfamily\bfseries}
 
@@ -22,9 +24,28 @@
 
 % "Macros" for re-occurring constructs
 \newcommand{\limpl}{\mathcal{L}_\to}
+\newcommand{\npiproofs}{\mathsf{D}_\to}
 \newcommand{\implnpi}{$\to$\textbf{Npi}}
 \newcommand{\implnpm}{$\to$\textbf{Npm}}
+\newcommand{\stlambda}{$\lambda_\to$}
+\newcommand{\stlambdaterms}{\Lambda_\Pi}
+\newcommand{\chmap}{\mathcal{F}}
+\newcommand{\chmapanta}{\mathcal{F}^{-1}}
+\newcommand{\chmapantasub}[3]{\chmapanta(#1[#2/#3])}
+\newcommand{\subchmapanta}[3]{\chmapanta(#1)[\chmapanta(#2)/\chmapanta(#3)]}
 \newcommand{\betared}{\rightarrow_\beta}
+
+\newcommand{\implelim}[3]{%
+  #1
+  #2
+  \RightLabel{$\to$E}
+  \BinaryInfC{#3}
+}
+\newcommand{\implintro}[3]{%
+  #1
+  \RightLabel{$\to$I, $#2$}
+  \UnaryInfC{#3}
+}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -50,10 +71,16 @@
 \tableofcontents
 
 % Preface
+\setcounter{chapter}{-1}
 \input{chapters/preface}
 
 % Prerequisites
 \input{chapters/prerequisites}
+
+% Curry-Howard
+\input{chapters/curryhoward}
+
+\input{appendix}
 
 \printbibliography
 

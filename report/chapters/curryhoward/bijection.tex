@@ -1,0 +1,229 @@
+\section{Smooth Operators}
+\label{section:bijection}
+
+\begin{definition}
+We define the notation $M^{A}$ for a simply-typed lambda term $M$ to mean that
+$M$ contains the outermost type annotation $A$, i.e. $M^A \equiv M':A$ for some
+string $M'$.
+\end{definition}
+
+\begin{theorem}[Curry-Howard Isomorphism]
+The natural deduction system \implnpi\ consisting of the set $\npiproofs$ of
+deduction trees with implication introduction and implication elimination as
+operations is isomorphic to the term calculus \stlambda\ consisting of the set
+$\stlambdaterms$ of simply-typed lambda terms with functional abstraction and
+function application as operations.
+\end{theorem}
+
+\begin{proof}
+We give a bijection $\chmap: \npiproofs \to \stlambdaterms$ from the set $\npiproofs$
+of \implnpi\ deduction trees to the set $\stlambdaterms$ of simply-typed lambda terms.
+\begin{alignat*}{2}
+\chmap(A^u) &:= u: A \\[6pt]
+\chmap\left(
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\right) &:= \chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B \\[6pt]
+\chmap\left(
+  \AxiomC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\right) &:= (\lambda u: A.\chmap(\mathcal{D})): A \to B
+\end{alignat*}
+
+\begin{proposition}
+If $\mathcal{D}$ is a deduction of $A$, then $\chmap(\mathcal{D})$ has type $A$.
+\end{proposition}
+
+\begin{proof}
+By induction on the complexity of $\mathcal{D}$.
+\end{proof}
+
+\noindent We additionally define a function $\stlambdaterms \to \npiproofs$,
+suggestively named $\chmapanta$:
+\begin{alignat*}{2}
+\chmapanta(u: A) & := A^u \\[6pt]
+\chmapanta((M^{A \to B})(N^A): B) &:=
+  \AxiomC{$\chmapanta(M^{A \to B})$}
+  \AxiomC{$\chmapanta(N^A)$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{B}
+  \DisplayProof \\[6pt]
+\chmapanta((\lambda u:A.M^B):A \to B) &:=
+  \AxiomC{$\chmapanta(M^B)$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\end{alignat*}
+
+\begin{proposition}
+For any lambda term $M^A$, $\chmapanta(M^A)$ is a proof of $A$.
+\end{proposition}
+
+\begin{proof}
+By induction on the complexity of lambda terms.
+\end{proof}
+
+\noindent We now show that $\chmap$ is a bijection by showing that
+\begin{itemize}
+\item[(i)] $\chmapanta \circ \chmap = id_{\npiproofs}$ and
+\item[(ii)] $\chmap \circ \chmapanta = id_{\stlambdaterms}$.
+\end{itemize}
+The proof is by induction on the construction of deduction trees and lambda
+terms respectively.\\
+\\
+\noindent (i) $\chmapanta \circ \chmap = id_{\npiproofs}$
+% Base case
+\[
+\chmapanta(\chmap(A^u)) = \chmapanta(u:A) = A^u = id_{\npiproofs}(A^u)
+\]
+% Impl elim
+\begin{align*}
+\chmapanta\left(\chmap\left(
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+\right)\right)
+& =
+  \chmapanta(\chmap(\mathcal{D}_1) \chmap(\mathcal{D}_2): B)
+  \tag{By def. $\chmap$} \\[6pt]
+& =
+  \AxiomC{$\chmapanta(\chmap(\mathcal{D}_1))$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\chmapanta(\chmap(\mathcal{D}_2))$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{B}
+  \DisplayProof \tag{By def. $\chmapanta$} \\[6pt]
+& =
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof \tag{By induction hypothesis} \\[6pt]
+& =
+  id_{\npiproofs}\left(
+  \AxiomC{$\mathcal{D}_1$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\mathcal{D}_2$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$B$}
+  \DisplayProof
+  \right)
+\end{align*}
+% Impl intro
+\begin{align*}
+\chmapanta\left(\chmap\left(
+  \AxiomC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+\right)\right)
+& =
+  \chmapanta((\lambda u: A.\chmap(\mathcal{D})): A \to B)
+  \tag{By def. $\chmap$} \\[6pt]
+& =
+  \AxiomC{$\chmapanta(\chmap(\mathcal{D}))$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof \tag{By def. $\chmapanta$} \\[6pt]
+& =
+  \AxiomC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof \tag{By induction hypothesis} \\[6pt]
+& =
+  id_{\npiproofs}\left(
+  \AxiomC{$\mathcal{D}$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+  \right)
+\end{align*}
+
+\noindent (ii) $\chmap \circ \chmapanta = id_{\stlambdaterms}$
+% Base case
+\begin{align*}
+\chmap(\chmapanta(u:A)) & = \chmap(A^u) = u:A = id_{\stlambdaterms}(u:A)
+\end{align*}
+% Function application
+\begin{align*}
+\chmap(\chmapanta(M^{A \to B}N^A:B)) & =
+  \chmap\left(
+  \AxiomC{$\chmapanta(M^{A \to B})$}
+  \noLine
+  \UnaryInfC{$A \to B$}
+  \AxiomC{$\chmapanta(N^A)$}
+  \noLine
+  \UnaryInfC{$A$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{B}
+  \DisplayProof
+  \right) \tag{By def. $\chmapanta$}\\[4pt]
+& =
+  \chmap(\chmapanta(M^{A \to B}))\chmap(\chmapanta(N^A)): B
+  \tag{By def.  $\chmap$}\\[6pt]
+& =
+  M^{A \to B}N^A:B
+  \tag{By induction hypothesis}\\[6pt]
+& =
+  id_{\stlambdaterms}(M^{A \to B}N^A:B)
+\end{align*}
+% lambda abstraction
+\begin{align*}
+\chmap(\chmapanta((\lambda u:A.M^B):A \to B)) &=
+  \chmap\left(
+  \AxiomC{$\chmapanta(M^B)$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$I, $u$}
+  \UnaryInfC{$A \to B$}
+  \DisplayProof
+  \right) \tag{By def. $\chmapanta$} \\[6pt]
+& =
+  (\lambda u: A.\chmap(\chmapanta(M^B))): A \to B
+  \tag{By def. $\chmap$} \\[6pt]
+& =
+  (\lambda u: A.M^B): A \to B
+  \tag{By induction hypothesis} \\[6pt]
+& =
+  id_{\stlambdaterms}((\lambda u: A.M^B): A \to B)
+\end{align*}
+
+The correspondence of implication introduction with functional abstraction, and
+implication elimination with function application is immediate from the
+definition of $\chmap$ and $\chmapanta$ and omitted for brevity.
+\end{proof}
