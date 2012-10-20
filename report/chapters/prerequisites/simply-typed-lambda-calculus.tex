@@ -93,9 +93,6 @@ N) \in \Lambda_\Pi$, but not of $(M\!:\!\sigma\; N\!:\!\tau)$, where $M:\sigma, 
 hence not part of our language, so it doesn't make sense to talk about
 $\beta$-redutions of it.
 
-We do however need to make sure that substitution is $\emph{closed}$ in
-$\Lambda_\Pi$.
-
 \begin{proposition}[Subject reduction/expansion]
     $M:\sigma \betared N:\tau$ implies $\sigma = \tau$.
 \end{proposition}
@@ -107,3 +104,21 @@ $\Lambda_\Pi$.
     If $M:\sigma =_\beta N:\tau$ then $\sigma = \tau$.
 \end{corollary}
 
+A very important theorem which can be established in Church style
+$\lambda$-calculus is the \emph{weak normalisation} property.
+\begin{theorem}[Weak normalisation]
+    For any $M:\tau \in \Lambda_\Pi$, there exists a reduction strategy which
+    'terminates' in a finite number of steps, i.e. there exists a sequence
+    $M:\tau \betared M_1 \betared \ldots M_n:\tau$, where $M_n:\tau$ is in
+    normal form.
+\end{theorem}
+
+Note that this does \emph{not} hold for untyped $\lambda$ calculus, since we
+have seen that for exaple the term $(\lambda x.\, x x\;\; \lambda x. x x)$
+cannot be reduced to a normal form. For any type assignment, this term is not
+an element of $\Lambda_\Pi$ (this follows easily from the subject reduction
+property).
+
+\begin{proof}
+    \texttt{Do a sketch drawing similarities between normalisation of proofs}
+\end{proof}
