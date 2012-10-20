@@ -1,17 +1,35 @@
+\pagebreak
 \section{Normalisation}
 
 \begin{definition}[Proof Instantiation]
 We define a function for replacing all occurences of an open assumption $A^u$ in
-a deduction tree $\mathcal{D}$ by a deduction $\mathcal{E}$ of $A$, written as
+a deduction tree $\mathcal{D}$ by a deduction $\mathcal{E}$, written as
 $\mathcal{D}[\mathcal{E}/A^u]$. We say we produce $\mathcal{D}[\mathcal{E}/A^u]$
 by \textit{instantiating $u$ in $\mathcal{D}$ with $\mathcal{E}$}.
-
 \[
   \mathcal{D}[\mathcal{E}/A^u] =
   \left\{
   \begin{array}{ll}
   \mathcal{E} & \mbox{if } \mathcal{D} = A^u \\[6pt]
   \mathcal{D} & \mbox{if } \mathcal{D} = B^v, v \neq u \\[10pt]
+  \AxiomC{$\mathcal{D}'[\mathcal{E}/A^u]$}
+  \noLine
+  \UnaryInfC{$B \to C$}
+  \AxiomC{$\mathcal{D}''[\mathcal{E}/A^u]$}
+  \noLine
+  \UnaryInfC{$B$}
+  \RightLabel{$\to$E}
+  \BinaryInfC{$C$}
+  \DisplayProof & \mbox{if } \mathcal{D} =
+    \AxiomC{$\mathcal{D}'$}
+    \noLine
+    \UnaryInfC{$B \to C$}
+    \AxiomC{$\mathcal{D}''$}
+    \noLine
+    \UnaryInfC{$B$}
+    \RightLabel{$\to$E}
+    \BinaryInfC{$C$}
+    \DisplayProof \\[24pt]
   \mathcal{D} & \mbox{if } \mathcal{D} =
     \AxiomC{$\mathcal{D}'$}
     \noLine
@@ -30,28 +48,12 @@ by \textit{instantiating $u$ in $\mathcal{D}$ with $\mathcal{E}$}.
     \UnaryInfC{$C$}
     \RightLabel{$\to$I, $v$}
     \UnaryInfC{$B \to C$}
-    \DisplayProof, v \neq u \\[24pt]
-  \AxiomC{$\mathcal{D}'[\mathcal{E}/A^u]$}
-  \noLine
-  \UnaryInfC{$B \to C$}
-  \AxiomC{$\mathcal{D}''[\mathcal{E}/A^u]$}
-  \noLine
-  \UnaryInfC{$B$}
-  \RightLabel{$\to$E}
-  \BinaryInfC{$C$}
-  \DisplayProof & \mbox{if } \mathcal{D} =
-    \AxiomC{$\mathcal{D}'$}
-    \noLine
-    \UnaryInfC{$B \to C$}
-    \AxiomC{$\mathcal{D}''$}
-    \noLine
-    \UnaryInfC{$B$}
-    \RightLabel{$\to$E}
-    \BinaryInfC{$C$}
-    \DisplayProof
+    \DisplayProof, v \neq u
   \end{array}
   \right.
 \]
+In the last case we require $\mathcal{E}$ to be a proof where any assumption
+classes marked with $v$ are closed.
 \end{definition}
 
 \begin{definition}[Conversion]
@@ -129,17 +131,6 @@ $\mathcal{E}$}.
 We now want to show that we can extend the isomorphism for the structures from
 \ref{section:bijection} to include the correspondence between conversion in
 $\npiproofs$ and $\beta$-reduction in $\stlambdaterms$.
-
-\begin{definition}
-\begin{align*}
-x^A[M^A/x^A] & := M^A \\
-y^B[M^A/x^A] & := y^B \mbox{ for } y \neq x \\
-(N_1^{B \to C}N_2^{B})^C[M^A/x^A] & := (N_1^{B \to C}[M^A/x^A]N_2^{B}[M^A/x^A])^C \\
-(\lambda x^A.N^B)^{A \to B}[M^A/x^A] & := (\lambda x^A.N^B)^{A \to B} \\
-(\lambda y^B.N^C)^{B \to C}[M^A/x^A] & := (\lambda y^B.N^C[M^A/x^A])^{B \to C}
-\mbox{ for } y \neq x, y \mbox{ not free in } M^A
-\end{align*}
-\end{definition}
 
 \begin{proposition}
 For $M, M' \in \stlambdaterms$, if $M \betared M'$, then $\chmapanta(M) \leadsto
