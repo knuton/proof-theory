@@ -141,8 +141,9 @@ For $M, M' \in \stlambdaterms$, if $M \betared M'$, then $\chmapanta(M) \leadsto
 \end{proposition}
 
 \begin{proof}
-$M \betared M'$ implies that $M = (\lambda x^A.N^B)^{A \to B}P^A:B$ for some $x,
-N, P, A, B$ and $M' = N^B[P^A/x^A]$.
+
+As noted in \ref{def:stlambda}, $M \betared M'$ implies that $M = (\lambda
+x^A.N^B)^{A \to B}P^A:B$ for some $x, N, P, A, B$ and $M' = N^B[P^A/x^A]$.
 
 To prove our claim, we show that $\chmapanta((\lambda x^A.N^B)^{A \to B}P^A:B) =
 \chmapanta(N^B[P^A/x^A])$ by showing that
@@ -167,39 +168,39 @@ Assume now that $N_1^{B \to C}, N_2^B$ are two terms such that
       = \subchmapanta{N_1^{B \to C}}{P^A}{x^A}$ and
 \item $\chmapantasub{N_2^B}{P^A}{x^A} = \subchmapanta{N_2^B}{P^A}{x^A}$.
 \end{itemize}
-Then $\chmapantasub{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A}$
+We treat the case for lambda abstraction with a typed variable $y^D \not\equiv
+x^A$. The case where $y^D \equiv x^A$ can be checked by looking at the
+definition of subtitution and instantiation and is excluded for brevity. The
+case for function application is included the appendix to be referenced if
+need be.
+
 \begin{align*}
+\lefteqn{\chmapantasub{(\lambda y^D.N_2^B)^{D \to B}}{P^A}{x^A}} \\[10pt]
   &=
-    \subchmapanta{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A} \\
+  \chmapanta((\lambda y^D.N_2^B[P^A/x^A])^{D \to B})
+  \tag{by substitution}\\[10pt]
   % By \chmapanta
   &=
-  \implelim{%
-    \AxiomC{$\chmapantasub{N_1^{B \to C}}{P^A}{x^A}$}\noLine\UnaryInfC{$B \to C$}
-  }{%
+  \implintro{%
     \AxiomC{$\chmapantasub{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
-  }{$C$}
-  \DisplayProof \\
+  }{y}{$D \to B$}
+  \DisplayProof \tag{by def. $\chmapanta$}\\[10pt]
   % By i.h.
   &=
-  \implelim{%
-    \AxiomC{$\subchmapanta{N_1^{B \to C}}{P^A}{x^A}$}\noLine\UnaryInfC{$B \to C$}
-  }{%
+  \implintro{%
     \AxiomC{$\subchmapanta{N_2^B}{P^A}{x^A}$}\noLine\UnaryInfC{$B$}
-  }{$C$}
-  \DisplayProof \\
+  }{y}{$D \to B$}
+  \DisplayProof \tag{by I.H.}\\[10pt]
   % By instantiation
   &=
   \left(
-  \implelim{%
-    \AxiomC{$\chmapanta(N_1^{B \to C})$}\noLine\UnaryInfC{$B \to C$}
-  }{%
+  \implintro{%
     \AxiomC{$\chmapanta(N_2^B)$}\noLine\UnaryInfC{$B$}
-  }{$C$}
+  }{y}{$D \to B$}
   \DisplayProof
-  \right)[\chmapanta(P^A)/\chmapanta(x^A)] \\
+  \right)[\chmapanta(P^A)/\chmapanta(x^A)] \tag{by instantiation} \\[10pt]
   % By \chmapanta
-  &=
-  \subchmapanta{(N_1^{B \to C}N_2^B)^C}{P^A}{x^A}
+  &= \subchmapanta{(\lambda y^D.N_2^B)^{D \to B}}{P^A}{x^A} \tag{by def. $\chmapanta$}
 \end{align*}
 
 \end{proof}

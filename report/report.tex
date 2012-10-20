@@ -38,6 +38,11 @@
   \RightLabel{$\to$E}
   \BinaryInfC{#3}
 }
+\newcommand{\implintro}[3]{%
+  #1
+  \RightLabel{$\to$I, $#2$}
+  \UnaryInfC{#3}
+}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -70,6 +75,8 @@
 
 % Curry-Howard
 \input{chapters/curryhoward}
+
+\input{appendix}
 
 \printbibliography
 
