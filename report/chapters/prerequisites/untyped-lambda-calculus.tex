@@ -1,10 +1,6 @@
 \section{The Untyped $\lambda$-calculus}
 
-%% Here I follow the style "Introduction to Lambda Calculus" by
-%% H. Barendregt and E. Barendsen to avoid dealing with "pre-terms" and that
-%% crap.
-
-The language of untyped $\lambda$-calculus is surprisingly simple.
+The language of untyped $\lambda$-calculus is surprisingly simple.\footnote{Here we mostly follow the style used in \smartcite{introtolambda}.}
 
 We begin with an infinite set of variables $V = \{v, v', v'', \ldots\}$ from
 which we construct the set of $\lambda$-terms which we shall call $\Lambda$.
@@ -77,17 +73,27 @@ not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
 %$\lambda$-term by one which has been defined as equivalent.
 %\end{definition}
 
-Now we move on to some results.
-
-\subsection{$\beta$-reduction}
-
 Since $\lambda$-calculus is supposed to express computable terms, we need to
 have a way of evaluating them. This is achieved via something called
 $\beta$-reduction. One can view $\beta$-reduction as yet another scheme for
 replacements (such as $\alpha$-conversion).
 
-\begin{definition}[$\beta$-reduction]
-\[ (\lambda x M N) \betared M[N/x] \]
+\begin{definition}[$\beta$-reduction] We define $\beta$-reduction as the
+operation $\betared$, such that:
+\[ (\lambda x M) N \betared M[N/x] \]
+
+It is important to note that $\betared$ induces a relation on $\Lambda$. We
+want to be able to reduce sub-terms of any $\lambda$-term so we require that
+$\betared$ is closed under the following rules:
+\begin{align*}
+    P \betared P' &\Rightarrow
+        \begin{cases}
+            \forall x \in V: & \lambda x.P \betared \lambda x. P' \\
+            \forall Z \in \Lambda: & (P\, Z) \betared (P'\, Z) \\
+            \forall Z \in \Lambda: & (Z\, P) \betared (Z\, P')
+        \end{cases}
+\end{align*}
+
 \end{definition}
 
 %% @todo: maybe this part is BS/not that much related to our paper, so I
@@ -125,18 +131,6 @@ stuck in an infinite loop. We can even think of worse examples by taking
 $\bm{T} = \lambda x.\; x\, x\,x$ and trying to evaluate $\bm{T}\, \bm{T}$.
 Again, this hints on the similarity with computation (via non-terminating
 programs).
-
-It is important to note that $\betared$ induces a relation on $\Lambda$. We
-want to be able to reduce subterms of any $\lambda$-term so we require that
-$\betared$ is closed under the following rules:
-\begin{align*}
-    P \betared P' &\Rightarrow
-        \begin{cases}
-            \forall x \in V: & \lambda x.P \betared \lambda x. P' \\
-            \forall Z \in \Lambda: & (P\, Z) \betared (P'\, Z) \\
-            \forall Z \in \Lambda: & (Z\, P) \betared (Z\, P')
-        \end{cases}
-\end{align*}
 
 \begin{definition}[$\beta$-redex]
     A term of the form $(\lambda x. M) N$ is called a ($\beta$-)\emph{redex}.
