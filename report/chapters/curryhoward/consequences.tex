@@ -1,0 +1,34 @@
+\section{Consequences of the correspondance}
+
+Having achieved the correspondence we can now start applying results
+established in one camp to the other. There are two examples that we would like
+to explore.
+
+The normalisation results for \stlambda\ immediatelly imply equivalent notions
+of weak and strong normalisation of deduction trees. In fact, this is not
+surprising as the proof in \ref{thm:weaknorm} can be reused for proving the
+weak normalisation of deductions in \implnpi\ if one replaces the notion of a
+\emph{redex} with the notion of a \emph{cut-segment} in a deduction tree (and the
+related concepts), but keeps the overal structure of the deduction the same.
+
+What is perhaps more surprising is that one can proceed by using corollaries of
+the Church-Rosser Theorem, such as uniqueness of normal forms
+(\ref{cor:uniqnorm}) which imply that there exists a unique normal form of a
+deduction tree as well and that the any order of normalisation steps in a
+deduction tree will produce a unique deduction tree in a finite number of steps.
+
+Results on unprovability can be difficult to obtain, so an interesting
+application is the following:
+
+\begin{proposition}\implnpi\ is consistent.\end{proposition}
+\begin{proof}
+    Assume there is a deduction tree for $\bot$ in \implnpi. Then there exists
+    an $M\!:\!\bot \in \Lambda_\Pi$ and by weak normalisation and uniqueness of
+    types, there must exist an $N:\bot \betared^* N:\bot$ and $N$ is in normal
+    form. This means that either $N$ is of the form $\lambda x. N'$ (where $N'$
+    is in normal form), in which case $N$ would have type $N:\sigma\to\tau$,
+    but this would mean that $\bot = \sigma\to\tau$, which is clearly false.
+    Otherwise, $N$ could be of the form $x N_1 \ldots N_m$ (where $N_i$'s are
+    in normal-form), but this is again not possible since then $x$ is a free
+    variable, but $FV(N:\bot) = \{\}$.
+\end{proof}
