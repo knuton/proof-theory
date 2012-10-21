@@ -22,13 +22,13 @@ application is the following:
 
 \begin{proposition}\implnpi\ is consistent.\end{proposition}
 \begin{proof}
-    Assume there is a deduction tree for $\bot$ in \implnpi. Then there exists
-    an $M\!:\!\bot \in \Lambda_\Pi$ and by weak normalisation and uniqueness of
-    types, there must exist an $N:\bot \betared^* N:\bot$ and $N$ is in normal
-    form. This means that either $N$ is of the form $\lambda x. N'$ (where $N'$
-    is in normal form), in which case $N$ would have type $N:\sigma\to\tau$,
-    but this would mean that $\bot = \sigma\to\tau$, which is clearly false.
-    Otherwise, $N$ could be of the form $x N_1 \ldots N_m$ (where $N_i$'s are
-    in normal-form), but this is again not possible since then $x$ is a free
-    variable, but $FV(N:\bot) = \{\}$.
+    Assume there is a closed deduction tree for $\bot$ in \implnpi. Then there
+    exists an $M\!:\!\bot \in \Lambda_\Pi$ and by weak normalisation and
+    uniqueness of types, there must exist an $N:\bot \betared^* N:\bot$ and $N$
+    is in normal form. This means that either $N$ is of the form $\lambda x.
+    N'$ (where $N'$ is in normal form), in which case $N$ would have type
+    $N:\sigma\to\tau$, but this would mean that $\bot = \sigma\to\tau$, which
+    is clearly false.  Otherwise, $N$ could be of the form $x N_1 \ldots N_m$
+    (where $N_i$'s are in normal-form), but this is again not possible since
+    then $x$ is a free variable, but $FV(M:\bot) = FV(N:\bot) = \{\}$.
 \end{proof}
