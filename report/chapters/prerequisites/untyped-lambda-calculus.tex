@@ -53,7 +53,7 @@ not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
 %% can't put my finger on it.
 \begin{definition}[Substitution]
     Let $M,\, N \in \Lambda$, $x, y\in V$. We denote the
-    substitution of (free occurances of) $x$ in $M$ by $N$ as $M[N/x]$ and
+    substitution of (free occurrences of) $x$ in $M$ by $N$ as $M[N/x]$ and
     define it as follows (here $x \neq y$):
     \begin{align*}
         x[N/x] &= N & \\
@@ -79,11 +79,11 @@ $\beta$-reduction. One can view $\beta$-reduction as yet another scheme for
 replacements (such as $\alpha$-conversion).
 
 \begin{definition}[$\beta$-reduction] We define $\beta$-reduction as the
-opperation $\betared$, such that:
+operation $\betared$, such that:
 \[ (\lambda x M) N \betared M[N/x] \]
 
 It is important to note that $\betared$ induces a relation on $\Lambda$. We
-want to be able to reduce subterms of any $\lambda$-term so we require that
+want to be able to reduce sub-terms of any $\lambda$-term so we require that
 $\betared$ is closed under the following rules:
 \begin{align*}
     P \betared P' &\Rightarrow
