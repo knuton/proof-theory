@@ -12,7 +12,7 @@ elements of type $\mathbb{N}$ and thus has the type $\mathbb{Z} \rightarrow
 $x \mapsto x^2$ transforms it to $9$ which is of type $\mathbb{N}$.
 
 We shall follow the so-called Church style of typed $\lambda$-calculus, which
-uses explicit type annotations for the variable immediatelly following
+uses explicit type annotations for the variable immediately following
 $\lambda$ in $\lambda$-abstractions, i.e. we shall write $\lambda
 x\!:\!\sigma\; M$ and say that here $x$ is of type $\sigma$. As we will see,
 this approach has the nice property of uniquely fixing the type of
@@ -86,13 +86,13 @@ The language of simply typed $\lambda$-calculus is built from:
 The definitions of \emph{free variables}, \emph{substitution} and
 $\beta$-reduction remain the same as in the case for untyped
 $\lambda$-calculus, we only need to replace all untyped term occurrences with
-explicitly typed ones, hence Church-Rosser theorem and it's colloraries hold
+explicitly typed ones, hence Church-Rosser theorem and it's corollaries hold
 too. Furthermore, it's worth noting that it only makes sense to talk about
 $\beta$-reduction of \emph{a} term in $\Lambda_\Pi$, i.e. $(M\, N) \in
 \Lambda_\Pi$, but not of $(M\!:\!\sigma\; N\!:\!\tau)$, where $M:\sigma, N:\tau
 \in \Lambda_\Pi$ since $(M\!:\!\sigma\; N\!:\!\tau)$ might not be well-typed
 and hence not part of our language, so it doesn't make sense to talk about
-$\beta$-redutions of it.
+$\beta$-reductions of it.
 
 \begin{proposition}[Subject reduction/expansion]
     $M:\sigma \betared N:\tau$ implies $\sigma = \tau$.
