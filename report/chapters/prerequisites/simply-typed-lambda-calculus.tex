@@ -1,10 +1,9 @@
 \section{The Simply-typed $\lambda$-calculus}
 
-We now consider a \emph{typed} version of $\lambda$-calculus.
-\footnote{Here we mostly follow the style of \smartcite{lectures}.}
-The notion of types is very natural to someone with a background in
-programming, but perhaps not so much to someone from the background of
-mathematics.
+We now consider a \emph{typed} version of $\lambda$-calculus\footnote{Here we
+mostly follow the style of \smartcite{lectures}.}.  The notion of types is very
+natural to someone with a background in programming, but perhaps not so much to
+someone from the background of mathematics.
 
 In mathematics the role of types is played by the domain and co-domain of a
 function, e.g. when we write down $f: \mathbb{Z} \rightarrow \mathbb{N}$ we
@@ -18,10 +17,8 @@ uses explicit type annotations for the variable immediately following
 $\lambda$ in $\lambda$-abstractions, i.e. we shall write $\lambda
 x\!:\!\sigma\; M$ and say that here $x$ is of type $\sigma$. As we will see,
 this approach has the nice property of uniquely fixing the type of
-any\footnote{
-    In order to be precise, we should say ``of any \emph{typable}''
-    term, but we only define this notion later on.}
-$\lambda$ expression.
+any\footnote{In order to be precise, we should say ``of any \emph{typable}''
+term, but we only define this notion later on.} $\lambda$ expression.
 
 We will also on the syntactic level restrict our language to \emph{typable}
 terms in order to be able to speak uniformly about arbitrary terms in the
@@ -67,7 +64,7 @@ The language of simply typed $\lambda$-calculus is built from:
     Observe that in the construction of $\Lambda_\Pi$ we are actually coupling the
     term construction with the typability rules for the types. This removes the
     need for explicit typability rules because we ensure that all of our terms
-    are well-typed be definition.
+    are well-typed by definition.
 
 \emph{Note 2.}
     The set $\Lambda_\Pi$ differs in a crucial way from the set of
@@ -88,7 +85,7 @@ The language of simply typed $\lambda$-calculus is built from:
 The definitions of \emph{free variables}, \emph{substitution} and
 $\beta$-reduction remain the same as in the case for untyped
 $\lambda$-calculus, we only need to replace all untyped term occurrences with
-explicitly typed ones, hence Church-Rosser theorem and it's corollaries hold
+explicitly typed ones, hence Church-Rosser theorem and its corollaries hold
 too. Furthermore, it's worth noting that it only makes sense to talk about
 $\beta$-reduction of \emph{a} term in $\Lambda_\Pi$, i.e. $(M\, N) \in
 \Lambda_\Pi$, but not of $(M\!:\!\sigma\; N\!:\!\tau)$, where $M:\sigma, N:\tau
