@@ -63,10 +63,12 @@ In this notation, $\mathcal{D}_1$ and $\mathcal{D}_2$ are deduction trees. The
 lines above and below a deduction tree are understood to be part of the tree
 unless separated by a horizontal line. A horizontal line signifies a rule
 application, with the name of the rule and optionally a marker name appearing
-right of the line. $A$ and $B$ are formulas of $\mathcal{L}_\to$. $[A]^u$
-denotes the assumption class of all occurrences of $A$ labeled with marker $u$.
-We see that $\to$I closes an assumption class, which we allow to consist of zero
-occurrences of $A$.
+right of the line. Note that the rule for implication elimination corresponds to
+a \textit{partial} function on the set of deduction trees, as only deduction
+trees with matching conclusions can be combined. $A$ and $B$ are formulas of
+$\mathcal{L}_\to$. $[A]^u$ denotes the assumption class of all occurrences of
+$A$ labeled with marker $u$.  We see that $\to$I closes an assumption class,
+which we allow to consist of zero occurrences of $A$.
 
 This should clarify what we take ``\implnpi'' to mean, for details we refer to
 \parencite{basicprooftheory} whose general formalism we follow.
