@@ -40,9 +40,9 @@ binds the variable in front of it, hence we have the definition:
     The set of free variables of $M \in \Lambda$, denoted $FV(M)$ is defined
     recursively as:
         \begin{align*}
-            FV(x) &= \{x\} \\
-            FV(\lambda x M) &= FV(M) \setminus \{x\} \\
-            FV(M N) &= FV(M) \cup FV(N)
+            FV(x) &:= \{x\} \\
+            FV(\lambda x M) &:= FV(M) \setminus \{x\} \\
+            FV(M N) &:= FV(M) \cup FV(N)
         \end{align*}
 \end{definition}
 
@@ -56,11 +56,11 @@ not in $FV(M)$. We also say that $M$ is \emph{closed} iff $FV(M) = \emptyset$.
     substitution of (free occurrences of) $x$ in $M$ by $N$ as $M[N/x]$ and
     define it as follows (here $x \neq y$):
     \begin{align*}
-        x[N/x] &= N & \\
-        y[N/x] &= y & \\
-        (P Q)[N/x] &= P[N/x]\; Q[N/x] & \\
-        (\lambda x. P)[N/x] &= \lambda x.P & \\
-        (\lambda y. P)[N/x] &= \lambda y.P[N/x] & y \notin FV(N)
+        x[N/x] &:= N & \\
+        y[N/x] &:= y & \\
+        (P Q)[N/x] &:= P[N/x]\; Q[N/x] & \\
+        (\lambda x. P)[N/x] &:= \lambda x.P & \\
+        (\lambda y. P)[N/x] &:= \lambda y.P[N/x] & y \neq x, y \notin FV(N)
     \end{align*}
 \end{definition}
 
