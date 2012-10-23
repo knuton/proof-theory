@@ -75,21 +75,24 @@ This should clarify what we take ``\implnpi'' to mean, for details we refer to
 
 We will now produce exemplary proofs of three axioms of propositional logic:
 
-\begin{prooftree}
+\begin{enumerate}[(i)]
+\item \hfill\(\begin{aligned}
 \AxiomC{$A^u$}
 \RightLabel{$\to$I, $u$}
 \UnaryInfC{$A \to A$}
-\end{prooftree}
+\DisplayProof
+\end{aligned}\)\hfill\null
 
-\begin{prooftree}
+\item \hfill\(\begin{aligned}
 \AxiomC{$A^u$}
 \RightLabel{$\to$I, $v$}
 \UnaryInfC{$B \to A$}
 \RightLabel{$\to$I, $u$}
 \UnaryInfC{$A \to (B \to A)$}
-\end{prooftree}
+\DisplayProof
+\end{aligned}\)\hfill\null
 
-\begin{prooftree}
+\item \hfill\(\begin{aligned}
 \AxiomC{$A \to (B \to C)^u$}
 \AxiomC{$A^v$}
 \RightLabel{$\to$E}
@@ -106,4 +109,6 @@ We will now produce exemplary proofs of three axioms of propositional logic:
 \UnaryInfC{$(A \to B) \to (A \to C)$}
 \RightLabel{$\to$I, $u$}
 \UnaryInfC{$(A \to (B \to C)) \to ((A \to B) \to (A \to C))$}
-\end{prooftree}
+\DisplayProof
+\end{aligned}\)\hfill\null
+\end{enumerate}
